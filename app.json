@@ -1,26 +1,11 @@
 {
   "expo": {
     "name": "FAME",
-    "slug": "FAME-226",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#000000"
-    },
+    "slug": "fame-226",
+    "version": "2.0.0",
     "android": {
-      "package": "com.fameofficial.london",
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#000000"
-      }
-    },
-    "web": {
-      "name": "FAME",
-      "shortName": "FAME",
-      "backgroundColor": "#000000"
+      "package": "com.fameofficial.app",
+      "versionCode": 2
     }
   }
 }
