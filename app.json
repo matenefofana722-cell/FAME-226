@@ -1,19 +1,5 @@
-{
-  "expo": {
-    "name": "FAME",
-    "slug": "FAME-226",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "splash": {
-      "backgroundColor": "#000000",
-      "resizeMode": "contain"
-    },
-    "android": {
-      "package": "com.fame.app",
-      "adaptiveIcon": {
-        "backgroundColor": "#000000"
-      }
-    },
-    "platforms": ["android"]
-  }
+"web": {
+  "name": "FAME",
+  "shortName": "FAME",
+  "backgroundColor": "#000000"
 }
