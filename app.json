@@ -1,0 +1,10 @@
+{
+  "expo": {
+    "name": "FAME",
+    "slug": "fame-226",
+    "version": "1.0.0",
+    "android": {
+      "package": "com.fame.app"
+    }
+  }
+}
