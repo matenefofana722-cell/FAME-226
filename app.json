@@ -1,34 +1,4 @@
-{
-  "expo": {
-    "name": "FAME",
-    "slug": "FAME-226",
-    "version": "1.0.0",
-    "android": {
-      "package": "com.fameofficial.app",
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#000000"
-      }
-    },
-    "splash": {
-      "image": "./assets/splash.png",
-      "backgroundColor": "#000000",
-      "resizeMode": "contain"
-    },
-    "plugins": [
-      [
-        "expo-splash-screen",
-        {
-          "backgroundColor": "#000000",
-          "image": "./assets/splash.png"
-        }
-      ],
-      [
-        "expo-camera",
-        {
-          "cameraPermission": "Allow FAME to access your camera for LIVE"
-        }
-      ]
-    ]
-  }
-}
+"plugins": [
+  ["expo-splash-screen", {...}],
+  ["expo-camera", {...}]
+]
