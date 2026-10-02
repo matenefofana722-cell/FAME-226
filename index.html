@@ -166,4 +166,11 @@ const chatMsgs=['🔥 London is live!','noir.moda is trending','Who at Southbank
 function renderChat(){document.getElementById('chatList').innerHTML=chatMsgs.map(m=>`<div style="padding:8px 10px;background:#111;border-radius:8px;margin-bottom:6px;font-size:13px">${m}</div>`).join('')}
 function sendChat(){const inp=document.getElementById('chatInput');if(!inp.value)return;chatMsgs.push('You: '+inp.value);inp.value='';renderChat()}
 render();renderChat();
-</script></body></html>
+</script><div style="height:90px"></div>
+<div id="fixedNav" style="position:fixed;bottom:0;left:0;right:0;max-width:440px;margin:0 auto;background:#0A0A0A;border-top:1px solid #1E1E20;display:flex;justify-content:space-around;padding:12px 0 20px;z-index:99999">
+<div style="text-align:center;color:#E9D9A8;flex:1"><div style="font-size:20px">⌂</div><div style="font-size:9px;margin-top:2px">Feed</div></div>
+<div style="text-align:center;color:#555;flex:1"><div style="font-size:20px">◎</div><div style="font-size:9px;margin-top:2px">Explorer</div></div>
+<div style="text-align:center;color:#555;flex:1" onclick="document.getElementById('uploadModal').style.display='flex'"><div style="font-size:22px">⊕</div><div style="font-size:9px;margin-top:2px">Create</div></div>
+<div style="text-align:center;color:#555;flex:1"><div style="font-size:20px">✉</div><div style="font-size:9px;margin-top:2px">Inbox</div></div>
+<div style="text-align:center;color:#555;flex:1"><div style="font-size:20px">○</div><div style="font-size:9px;margin-top:2px">Profile</div></div>
+</div></body></html>
