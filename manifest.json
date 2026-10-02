@@ -1,18 +1,21 @@
 {
-  "background_color": "#000000",
-  "dir": "ltr",
+  "name": "FAME - Go LIVE, Grow Your Fame",
+  "short_name": "FAME",
+  "description": "London's luxury social - Dark. Gold. Famous.",
+  "start_url": "./?v=10",
   "display": "standalone",
-  "name": "Fame",
-  "orientation": "any",
-  "scope": "/",
-  "short_name": "Fame",
-  "start_url": "/",
-  "theme_color": "#000000",
-  "id": "com.fameofficial.app",
-  "categories": ["entertainment", "photo & video", "social", "social networking"],
-  "description": "FAME - Go LIVE, Grow Your Fame. Live stream, chat with fans, and become famous.",
+  "background_color": "#1e1e28",
+  "theme_color": "#1e1e28",
   "icons": [
-    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png"},
-    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png"}
+    {
+      "src": "https://i.ibb.co/3mQk0Lq0/fame-icon.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "https://i.ibb.co/3mQk0Lq0/fame-icon.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
   ]
 }
