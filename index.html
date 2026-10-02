@@ -153,5 +153,7 @@ let box=document.getElementById('chatBox');
 let m=document.createElement('div');m.className='msg me';m.innerText=i.value;box.insertBefore(m,box.lastElementChild);i.value='';
 }
 </script>
-</body>
+<script>
+if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js')}
+</script></body>
 </html>
