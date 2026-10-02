@@ -1,40 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FAME</title>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#080808;color:#fff;font-family:'Inter',sans-serif;max-width:430px;margin:0 auto;-webkit-font-smoothing:antialiased}
-.logo{font-family:'Instrument Serif',serif;font-size:38px;letter-spacing:8px;color:#E8D5A3;text-align:center;padding:22px 0 16px;font-weight:400}
+body{background:#080808;color:#E8D5A3;margin:0;font-family:serif;max-width:430px;margin:auto}
+.logo{text-align:center;font-size:42px;letter-spacing:10px;padding:30px 0}
 .tabs{display:flex;gap:8px;padding:0 16px}
-.tab{flex:1;height:40px;border-radius:100px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:12.5px;font-weight:500;letter-spacing:.3px;border:1px solid #222;background:#111;color:#666;transition:.2s}
+.tab{flex:1;padding:12px;text-align:center;border:1px solid #222;border-radius:30px;background:#111;color:#666;font-size:12px}
 .tab.active{background:#E8D5A3;color:#000;border-color:#E8D5A3}
-.dot{width:6px;height:6px;background:#000;border-radius:50%}
-.stories{display:flex;gap:14px;padding:20px 16px;overflow-x:auto;scrollbar-width:none}
-.stories::-webkit-scrollbar{display:none}
-.s{ text-align:center; min-width:62px }
-.ring{width:62px;height:62px;border-radius:50%;padding:1.5px;background:linear-gradient(180deg,#E8D5A3,#8a7440)}
-.ring div{width:100%;height:100%;border-radius:50%;background:#080808;padding:2px}
-.ring img{width:100%;height:100%;border-radius:50%;object-fit:cover}
-.add{width:62px;height:62px;border-radius:50%;background:#1a1a1a;border:1px dashed #333;display:flex;align-items:center;justify-content:center}
-.s span{font-size:10.5px;color:#777;margin-top:7px;display:block;font-weight:400;letter-spacing:.2px}
-.post{padding:18px 16px 16px;border-top:1px solid #121212}
-.h{display:flex;align-items:center;gap:10px;margin-bottom:12px}
-.av{width:36px;height:36px;border-radius:50%;object-fit:cover}
-.meta b{font-size:13px;font-weight:600;letter-spacing:.2px;display:flex;align-items:center;gap:4px}
-.meta p{font-size:11px;color:#555;font-weight:400;margin-top:1px}
-.verified{width:14px;height:14px;background:#E8D5A3;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#000;font-size:9px;font-weight:800}
-.media{position:relative;border-radius:16px;overflow:hidden;background:#101010;aspect-ratio:4/5}
-.media img{width:100%;height:100%;object-fit:cover}
-.play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
-.play span{width:46px;height:46px;border-radius:50%;background:rgba(0,0,0,.45);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center}
-.time{position:absolute;right:10px;bottom:10px;background:rgba(0,0,0,.6);backdrop-filter:blur(10px);padding:4px 9px;border-radius:100px;font-size:10.5px;font-weight:500}
-.actions{position:absolute;right:10px;bottom:54px;display:flex;flex-direction:column;gap:16px;align-items:center}
-.act{display:flex;flex-direction:column;align-items:center;gap:4px;color:#fff}
-.act i{width:28px;height:28px;display:flex;align-items:center;justify-content:center}
-.act span{font-size:11px;font-weight:500}
-.caption{font-size:12.5px;line-height:18px;color:#aaa;margin-top:10px;font-weight:300}
-.caption strong{color:#fff;font-weight:500
+.card{margin:20px 16px;background:#111;border-radius:16px;overflow:hidden;border:1px solid #1a1a1a}
+.card img{width:100%;height:320px;object-fit:cover}
+.card p{padding:12px;color:#888;font-size:13px}
+.nav{position:fixed;bottom:0;left:0;right:0;max-width:430px;margin:auto;background:#080808;border-top:1px solid #1a1a1a;display:flex;justify-content:space-around;padding:14px 0}
+.nav span{color:#444;font-size:10px}
+.nav span.active{color:#E8D5A3}
+</style>
+</head>
+<body>
+<div class="logo">FAME</div>
+<div class="tabs">
+<div class="tab active">LIVE</div>
+<div class="tab">CHAT</div>
+<div class="tab">WALL</div>
+</div>
+<div class="card">
+<img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=600">
+<p><b style="color:#fff">noir.moda</b> London nights - fit check</p>
+</div>
+<div class="card">
+<img src="https://images.unsplash.com/photo-1529655683826-aba9b3e77383?w=600">
+<p><b style="color:#fff">citylens_london</b> Southbank views</p>
+</div>
+<div style="height:80px"></div>
+<div class="nav">
+<span class="active">FEED</span><span>EXPLORE</span><span>+</span><span>INBOX</span><span>PROFILE</span>
+</div>
+</body>
+</html>
