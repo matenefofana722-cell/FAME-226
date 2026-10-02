@@ -2,23 +2,111 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FAME</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#000;color:#fff;font-family: -apple-system, sans-serif;padding-bottom:90px}
-.top{font-size:28px;letter-spacing:10px;text-align:center;padding:18px 0;color:#f5e6a8;font-weight:900;background:#000;border-bottom:1px solid #1a1a1a}
-.tabs{display:flex;gap:8px;padding:12px 16px;background:#000}
-.tabs button{flex:1;padding:10px;border-radius:20px;border:1px solid #222;background:#0f0f0f;color:#666}
-.tabs button.active{background:#f5e6a8;color:#000;border-color:#f5e6a8;font-weight:700}
-.stories{display:flex;gap:14px;padding:14px 16px;overflow-x:auto;background:#000;border-bottom:1px solid #111}
-.story{text-align:center;font-size:10px;color:#888;min-width:62px}
-.story .plus{width:62px;height:62px;border-radius:50%;background:#111;border:2px dashed #333;color:#f5e6a8;display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:6px}
-.story img{width:62px;height:62px;border-radius:50%;border:2px solid #f5e6a8;display:block;margin-bottom:6px;object-fit:cover}
-.page{display:none;min-height:60vh;background:#000}
+body{background:#0a0a0f;color:#fff;font-family:-apple-system,BlinkMacSystemFont,sans-serif;padding-bottom:85px}
+.fame-title{font-family:serif;font-size:36px;letter-spacing:4px;text-align:center;padding:22px 0 14px;color:#d4b270;font-weight:900;text-shadow:0 0 20px rgba(212,178,112,.3)}
+.top-tabs{display:flex;gap:8px;padding:0 14px 16px}
+.top-tabs button{flex:1;padding:10px;border-radius:12px;border:1.5px solid #d4b270;background:transparent;color:#d4b270;font-size:13px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px}
+.top-tabs button.active{background:#d4b270;color:#000;border-color:#d4b270}
+.section{padding:0 14px 10px;color:#aaa;font-size:14px}
+.stories{display:flex;gap:14px;overflow-x:auto;padding:8px 14px 16px;scrollbar-width:none}
+.stories::-webkit-scrollbar{display:none}
+.story{text-align:center;min-width:66px;font-size:11px;color:#aaa}
+.story-ring{width:64px;height:64px;border-radius:50%;border:2px solid #d4b270;padding:2px;display:flex;align-items:center;justify-content:center;margin-bottom:6px;background:#111}
+.story-ring img{width:100%;height:100%;border-radius:50%;object-fit:cover}
+.story-ring.plus{background:linear-gradient(135deg,#f5c6c6,#d4b270);border:none}
+.plus-inner{width:54px;height:54px;border-radius:50%;background:#111;display:flex;align-items:center;justify-content:center;font-size:28px;color:#d4b270;border:2px solid #d4b270}
+.post{background:#12121a;margin:10px 14px;border-radius:16px;overflow:hidden;border:1px solid #1e1e2a}
+.post-head{display:flex;align-items:center;gap:10px;padding:12px}
+.post-head img{width:38px;height:38px;border-radius:50%;border:1.5px solid #d4b270}
+.post-head b{font-size:13px;color:#fff}
+.post-head span{font-size:11px;color:#d4b270}
+.post-media{position:relative;background:#000}
+.post-media video,.post-media img{width:100%;display:block;max-height:520px;object-fit:cover}
+.play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;border-radius:50%;background:rgba(0,0,0,.5);border:2px solid rgba(255,255,255,.8);display:flex;align-items:center;justify-content:center;font-size:18px}
+.time-badge{position:absolute;right:10px;bottom:10px;background:rgba(212,178,112,.9);color:#000;padding:4px 10px;border-radius:20px;font-size:12px;font-weight:700}
+.post-caption{padding:10px 12px;font-size:13px;color:#ddd}
+.actions{display:flex;align-items:center;gap:18px;padding:0 12px 12px;color:#d4b270;font-size:13px}
+.side-actions{position:absolute;right:10px;top:20%;display:flex;flex-direction:column;gap:18px;color:#d4b270;text-align:center;font-size:11px}
+.side-actions div{font-size:20px}
+.page{display:none}
 .page.active{display:block}
-#feedVideos{padding:12px}
-.vidCard{background:#0f0f0f;margin:0 0 14px 0;border-radius:16px;overflow:hidden;border:1px solid #1a1a1a}
-.vidCard video{width:100%;max-height:500px;background:#000}
-.vidInfo{padding:12px}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:space-around;background:#000;padding
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:#0a0a0f;border-top:1px solid #1e1e2a;display:flex;justify-content:space-around;padding:8px 0 20px;z-index:999}
+.bottom-nav button{background:none;border:none;color:#666;font-size:10px;display:flex;flex-direction:column;align-items:center;gap:4px}
+.bottom-nav button.active{color:#d4b270}
+.bottom-nav button span{font-size:20px}
+#uploadModal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:1000;align-items:center;justify-content:center;padding:20px}
+.modal{background:#15151f;padding:20px;border-radius:20px;width:100%;max-width:360px;border:1px solid #2a2a3a}
+</style>
+</head>
+<body>
+
+<div class="fame-title">FAME</div>
+
+<div class="top-tabs">
+<button class="active">• 👁️ Live</button>
+<button>💬 Chat</button>
+<button>🏆 Fame Wall</button>
+</div>
+
+<div class="section">Stories</div>
+<div class="stories">
+<div class="story"><div class="story-ring plus"><div class="plus-inner">+</div></div>Your Story</div>
+<div class="story"><div class="story-ring"><img src="https://i.pravatar.cc/100?img=5"></div>amelia._</div>
+<div class="story"><div class="story-ring"><img src="https://i.pravatar.cc/100?img=12"></div>jordan.k</div>
+<div class="story"><div class="story-ring"><img src="https://i.pravatar.cc/100?img=32"></div>luxe_d</div>
+<div class="story"><div class="story-ring"><img src="https://i.pravatar.cc/100?img=15"></div>marc._</div>
+</div>
+
+<!-- FEED = EXACT LIKE YOUR PIC -->
+<div id="feed" class="page active">
+<div id="feedVideos"></div>
+
+<!-- Demo posts like screenshot -->
+<div class="post">
+<div class="post-head"><img src="https://i.pravatar.cc/100?img=5"><div><b>noir.moda ☑️</b><br><span>London • 12m ago</span></div></div>
+<div class="post-media"><img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=600"><div class="play">▶</div><div class="time-badge">0:23</div></div>
+<div class="post-caption">London nights ✨ fit check #fame #night #style</div>
+</div>
+
+<div class="post">
+<div class="post-head"><img src="https://i.pravatar.cc/100?img=12"><div><b>citylens_london</b><br><span>34m ago • Photos</span></div></div>
+<div class="post-media"><img src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?w=600"></div>
+<div class="post-caption">Late night views from Southbank 🌙✨ golden hour turned midnight. #london #citylens #fameapp</div>
+<div class="actions"><span>♡ 8.7K</span><span>○ 291</span><span>⇧ 104</span></div>
+</div>
+</div>
+
+<div id="explorer" class="page"><p style="text-align:center;padding:80px;color:#555">Explorer — Discover NW10 🔥</p></div>
+<div id="inbox" class="page"><p style="text-align:center;padding:80px;color:#555">Inbox — No messages yet</p></div>
+<div id="profile" class="page"><div style="text-align:center;padding:50px"><div style="width:90px;height:90px;border-radius:50%;background:#d4b270;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:40px;color:#000">👤</div><p style="color:#d4b270">@london_boy</p><p style="color:#666;font-size:12px">NW10 London</p></div></div>
+
+<div id="uploadModal"><div class="modal">
+<h3 style="color:#d4b270;margin-bottom:12px">Post to FAME 🔥</h3>
+<input type="file" id="videoFile" accept="video/*" style="color:#fff;width:100%;margin-bottom:10px">
+<input type="text" id="caption" placeholder="Caption #fame #london" style="width:100%;padding:12px;border-radius:10px;border:1px solid #333;background:#0a0a0f;color:#fff">
+<button onclick="handleUpload()" style="width:100%;padding:12px;background:#d4b270;color:#000;border:none;border-radius:10px;font-weight:900;margin-top:12px">POST</button>
+<button onclick="document.getElementById('uploadModal').style.display='none'" style="width:100%;background:none;border:none;color:#666;margin-top:10px">Cancel</button>
+<p id="uploadStatus" style="text-align:center;color:#d4b270;margin-top:8px"></p>
+</div></div>
+
+<nav class="bottom-nav">
+<button class="active" onclick="showPage('feed',this)"><span>⌂</span>Feed</button>
+<button onclick="showPage('explorer',this)"><span>◍</span>Explorer</button>
+<button onclick="document.getElementById('uploadModal').style.display='flex'" style="color:#d4b270"><span style="border:1.5px solid #d4b270;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center">+</span>Create</button>
+<button onclick="showPage('inbox',this)"><span>✉</span>Inbox</button>
+<button onclick="showPage('profile',this)"><span>○</span>Profile</button>
+</nav>
+
+<script type="module">
+import { uploadFameVideo, getFameFeed } from './supabase.js'
+window.showPage=(id,btn)=>{document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.bottom-nav button').forEach(b=>b.classList.remove('active'));if(btn)btn.classList.add('active')}
+async function load(){try{const v=await getFameFeed();if(!v||!v.length)return;const box=document.getElementById('feedVideos');box.innerHTML=v.map(x=>`<div class="post"><div class="post-head"><img src="https://i.pravatar.cc/100?img=8"><div><b>@${x.username||'anon'}</b><br><span>Just now • Video</span></div></div><div class="post-media"><video src="${x.video_url||x.url}" controls playsinline></video></div><div class="post-caption">${x.caption||''}</div></div>`).join('')+box.innerHTML}catch(e){}}
+load()
+window.handleUpload=async()=>{const f=document.getElementById('videoFile').files[0];const c=document.getElementById('caption').value;if(!f)return alert('Pick video');document.getElementById('uploadStatus').innerText='Uploading...';try{await uploadFameVideo(f,c);document.getElementById('uploadStatus').innerText='Posted! 🔥';setTimeout(()=>{document.getElementById('uploadModal').style.display='none';location.reload()},1000)}catch(e){document.getElementById('uploadStatus').innerText='Failed: '+e.message}}
+</script>
+</body>
+</html>
