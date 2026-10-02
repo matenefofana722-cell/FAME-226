@@ -1,21 +1,12 @@
 {
   "name": "FAME - Go LIVE, Grow Your Fame",
   "short_name": "FAME",
-  "description": "London's luxury social - Dark. Gold. Famous.",
-  "start_url": "./?v=10",
+  "start_url": "./?v=12",
   "display": "standalone",
   "background_color": "#1e1e28",
   "theme_color": "#1e1e28",
   "icons": [
-    {
-      "src": "https://i.ibb.co/3mQk0Lq0/fame-icon.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "https://i.ibb.co/3mQk0Lq0/fame-icon.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    }
+    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png" }
   ]
 }
