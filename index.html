@@ -154,5 +154,9 @@ let m=document.createElement('div');m.className='msg me';m.innerText=i.value;box
 </script>
 <script>
 if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js')}
+</script><script>
+function openCreateModal(){document.getElementById('createModal').style.display='flex'}
+function closeCreateModal(){document.getElementById('createModal').style.display='none'}
+function createPost(){const f=document.getElementById('postFile').files[0];const c=document.getElementById('postCaption').value;if(!f){alert('Pick a photo/video!');return}const u=URL.createObjectURL(f);const isV=f.type.startsWith('video');const feed=document.getElementById('feed')||document.getElementById('posts')||document.querySelector('main');if(feed){const d=document.createElement('div');d.style.cssText='border:1px solid #333;margin:10px 0;border-radius:16px;overflow:hidden;background:#111';d.innerHTML=(isV?`<video src="${u}" controls style="width:100%"></video>`:`<img src="${u}" style="width:100%">`)+`<div style="padding:12px"><p style="margin:0;color:#fff">${c||'New post'}</p></div>`;feed.prepend(d)}closeCreateModal();document.getElementById('postCaption').value='';document.getElementById('postFile').value=''}
 </script></body>
 </html>
