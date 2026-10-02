@@ -156,9 +156,26 @@ let m=document.createElement('div');m.className='msg me';m.innerText=i.value;box
 if('serviceWorker' in navigator){navigator.serviceWorker.register('./sw.js')}
 </script>
 <script>
-function openCreateModal(){document.getElementById('createModal').style.display='flex'}
-function closeCreateModal(){document.getElementById('createModal').style.display='none'}
-function createPost(){const f=document.getElementById('postFile').files[0];const c=document.getElementById('postCaption').value;if(!f){alert('Pick file!');return}const u=URL.createObjectURL(f);const v=f.type.startsWith('video');const feed=document.getElementById('feed');if(feed){const d=document.createElement('div');d.className='post';d.innerHTML=(v?`<video src="${u}" controls style="width:100%"></video>`:`<img src="${u}" style="width:100%">`)+`<p style="padding:12px">${c}</p>`;feed.prepend(d)}closeCreateModal()}
+function openCreateModal(){
+ document.getElementById('createModal').style.display='flex'
+}
+function closeCreateModal(){
+ document.getElementById('createModal').style.display='none'
+}
+function createPost(){
+ const f=document.getElementById('postFile').files[0];
+ const c=document.getElementById('postCaption').value;
+ if(!f){alert('Pick file!');return}
+ const u=URL.createObjectURL(f);
+ const v=f.type.startsWith('video');
+ const feed=document.getElementById('feed');
+ const d=document.createElement('div');
+ d.className='post';
+ d.style.cssText='border:1px solid #333;margin:12px 0;border-radius:16px;overflow:hidden;background:#111';
+ d.innerHTML=(v?`<video src="${u}" controls style="width:100%"></video>`:`<img src="${u}" style="width:100%">`)+`<p style="padding:12px;color:#fff">${c}</p>`;
+ feed.prepend(d);
+ closeCreateModal();
+}
 </script>
 </body>
 </html>
