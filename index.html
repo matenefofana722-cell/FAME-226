@@ -163,19 +163,40 @@ function closeCreateModal(){
  document.getElementById('createModal').style.display='none'
 }
 function createPost(){
- const f=document.getElementById('postFile').files[0];
- const c=document.getElementById('postCaption').value;
- if(!f){alert('Pick file!');return}
- const u=URL.createObjectURL(f);
- const v=f.type.startsWith('video');
- const feed=document.getElementById('feed');
- const d=document.createElement('div');
- d.className='post';
- d.style.cssText='border:1px solid #333;margin:12px 0;border-radius:16px;overflow:hidden;background:#111';
- d.innerHTML=(v?`<video src="${u}" controls style="width:100%"></video>`:`<img src="${u}" style="width:100%">`)+`<p style="padding:12px;color:#fff">${c}</p>`;
- feed.prepend(d);
- closeCreateModal();
+  const f=document.getElementById('postFile').files[0];
+  const c=document.getElementById('postCaption').value;
+  if(!f){alert('Pick file!');return}
+  const u=URL.createObjectURL(f);
+  const v=f.type.startsWith('video');
+  const feed=document.getElementById('feed');
+  const d=document.createElement('div');
+  const id='post-'+Date.now();
+  d.className='post';
+  d.id=id;
+  d.style.cssText='border:1px solid #333;margin:12px 0;border-radius:16px;overflow:hidden;background:#111;position:relative;';
+  d.innerHTML=(v?`<video src="${u}" controls style="width:100%"></video>`:`<img src="${u}" style="width:100%">`)+`
+    <div style="padding:10px;display:flex;justify-content:space-between;align-items:center;">
+      <p style="color:white;margin:0;flex:1;">${c}</p>
+      <button onclick="toggleDel('${id}')" style="background:rgba(255,255,255,0.1);border:none;color:white;width:32px;height:32px;border-radius:50%;font-size:18px;">⋯</button>
+    </div>
+    <div id="del-${id}" style="display:none;position:absolute;top:10px;right:50px;background:#222;padding:8px;border-radius:10px;z-index:10;">
+      <button onclick="removePost('${id}')" style="background:#ff2a2a;color:white;border:none;padding:8px 16px;border-radius:8px;width:100%;font-weight:bold;">🗑️ Delete</button>
+      <button onclick="toggleDel('${id}')" style="background:#333;color:white;border:none;padding:6px 16px;border-radius:8px;width:100%;margin-top:6px;">Cancel</button>
+    </div>
+  `;
+  feed.prepend(d);
+  closeCreateModal();
 }
+function toggleDel(id){
+  const m=document.getElementById('del-'+id);
+  m.style.display=m.style.display==='none'?'block':'none';
+}
+function removePost(id){
+  if(confirm('Delete this post?')){
+    document.getElementById(id).remove();
+  }
+}
+
 </script>
 </body>
 </html>
