@@ -1,63 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>FAME</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;500;600&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#080808;color:#fff;font-family:'Inter',sans-serif;max-width:430px;margin:0 auto;overflow-x:hidden}
-.logo{font-family:'Cormorant Garamond',serif;font-size:38px;letter-spacing:12px;color:#E8D5A3;text-align:center;padding:22px 0 12px;font-weight:600}
-.stories{display:flex;gap:14px;padding:0 16px 16px;overflow-x:auto;scrollbar-width:none}
-.stories::-webkit-scrollbar{display:none}
-.story{text-align:center;min-width:62px}
-.ring{width:62px;height:62px;border-radius:50%;padding:2px;background:linear-gradient(45deg,#E8D5A3,#C9A86A);margin-bottom:6px}
-.ring.you{background:#1a1a1a;border:1px dashed #333}
-.inner{width:100%;height:100%;border-radius:50%;background:#111;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.inner img{width:100%;height:100%;object-fit:cover}
-.plus{font-size:22px;color:#E8D5A3}
-.sname{font-size:10px;color:#777;letter-spacing:0.5px}
-.tabs{display:flex;gap:8px;padding:4px 16px 14px}
-.tab{flex:1;padding:11px;text-align:center;border-radius:24px;font-size:11px;letter-spacing:1.5px;border:1px solid #1e1e1e;background:#111;color:#555;transition:0.2s}
-.tab.active{background:#E8D5A3;color:#080808;border-color:#E8D5A3;font-weight:500}
-.feed{padding:0 12px 90px}
-.card{position:relative;background:#111;border-radius:18px;overflow:hidden;margin-bottom:16px;border:1px solid #1a1a1a}
-.card-media{position:relative;height:520px;background:#000}
-.card-media img{width:100%;height:100%;object-fit:cover}
-.play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:52px;height:52px;border-radius:50%;background:rgba(0,0,0,0.45);backdrop-filter:blur(8px);border:1px solid rgba(232,213,163,0.3);display:flex;align-items:center;justify-content:center}
-.side{position:absolute;right:10px;bottom:90px;display:flex;flex-direction:column;gap:18px;align-items:center}
-.action{display:flex;flex-direction:column;align-items:center;gap:5px}
-.icon{width:34px;height:34px;border-radius:50%;background:rgba(15,15,15,0.7);backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center}
-.action span{font-size:11px;color:#fff;font-weight:500;text-shadow:0 1px 4px rgba(0,0,0,0.8)}
-.bottom-info{position:absolute;bottom:0;left:0;right:50px;padding:14px 16px;background:linear-gradient(transparent,rgba(0,0,0,0.9))}
-.user{font-size:13px;font-weight:600;margin-bottom:3px}
-.caption{font-size:12px;color:#aaa;line-height:1.3}
-.caption b{color:#fff}
-.nav{position:fixed;bottom:0;left:0;right:0;max-width:430px;margin:0 auto;background:#080808;border-top:1px solid #151515;display:flex;justify-content:space-around;padding:10px 0 20px}
-.nav-item{display:flex;flex-direction:column;align-items:center;gap:4px;color:#3a3a3a}
-.nav-item.active{color:#E8D5A3}
-.nav-item svg{width:22px;height:22px;stroke-width:1.5}
-.nav-label{font-size:9px;letter-spacing:1px}
-</style>
-</head>
-<body>
-<div class="logo">FAME</div>
-
-<div class="stories">
-<div class="story"><div class="ring you"><div class="inner"><span class="plus">+</span></div></div><div class="sname">You</div></div>
-<div class="story"><div class="ring"><div class="inner"><img src="https://i.pravatar.cc/100?img=5"></div></div><div class="sname">amelia._</div></div>
-<div class="story"><div class="ring"><div class="inner"><img src="https://i.pravatar.cc/100?img=8"></div></div><div class="sname">jordan.k</div></div>
-<div class="story"><div class="ring"><div class="inner"><img src="https://i.pravatar.cc/100?img=12"></div></div><div class="sname">noir.moda</div></div>
-<div class="story"><div class="ring"><div class="inner"><img src="https://i.pravatar.cc/100?img=32"></div></div><div class="sname">citylens</div></div>
+body{background:#050505;color:#fff;font-family:'Inter',sans-serif;max-width:430px;margin:auto}
+.top{padding:24px 16px 12px;text-align:center}
+.logo{font-family:'Cormorant Garamond',serif;font-size:44px;letter-spacing:8px;color:#E8D5A3;font-weight:600}
+.tabs{display:flex;gap:8px;padding:14px 14px}
+.t{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:10px;border-radius:10px;border:1px solid #222;background:#141414;color:#666;font-size:13px;font-weight:500}
+.t.active{background:#E8D5A3;color:#000;border-color:#E8D5A3}
+.st{padding:0 16px}
+.st p{font-size:13px;color:#999;margin-bottom:10px}
+.story-row{display:flex;gap:14px;overflow-x:auto;padding-bottom:14px}
+.s{text-align:center;min-width:64px}
+.r{width:64px;height:64px;border-radius:50%;padding:2px;background:linear-gradient(45deg,#E8D5A3,#8B7355)}
+.r2{width:100%;height:100%;border-radius:50%;background:#111;border:2px solid #000;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.r2 img{width:100%;height:100%;object-fit:cover}
+.r.you{background:#1a1a1a;border:1px dashed #333;display:flex;align-items:center;justify-content:center}
+.plus{width:46px;height:46px;border-radius:50%;background:#E8D5A3;display:flex;align-items:center;justify-content:center;color:#000;font-size:28px}
+.sn{font-size:11px;color:#888;margin-top:6px}
+.card{background:#101010;border-radius:14px;margin:0 14px 14px;border:1px solid #1a1a1a;overflow:hidden}
+.ch{display:flex;align-items:center;justify-content:space-between;padding:12px}
+.u{display:flex;align-items:center;gap:10px}
+.av{width:38px;height:38px;border-radius:50%;padding:2px;background:linear-gradient(45deg,#E8D5A3,#8B7355)}
+.av img{width:100%;height:100%;border-radius:50%;border:2px solid #000;object-fit:cover}
+.un{font-size:14px;font-weight:600}
+.meta{font-size:11px;color:#777}
+.act{display:flex;flex-direction:column;align-items:center;gap:4px}
+.act svg{color:#E8D5A3}
+.act span{font-size:12px;color:#fff}
+.media{position:relative;height:300px;background:#000}
+.media img{width:100%;height:100%;object-fit:cover}
+.play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;border-radius:50%;background:rgba(0,0,0,0.6);border:1.5px solid rgba(255,255,255,0.3);display:flex;align-items:center;justify-content:center}
+.cap{padding:10px 12px;font-size:12px;color:#aaa}
+.tag{background:#1a1a1a;color:#E8D5A3;font-size:11px;padding:3px 8px;border-radius:10px;float:right}
+.nav{position:fixed;bottom:0;left:0;right:0;max-width:430px;margin:auto;background:#080808;border-top:1px solid #1a1a1a;display:flex;justify-content:space-around;padding:12px 0 18px}
+.ni{color:#444;text-align:center}
+.ni.active{color:#E8D5A3}
+.ni svg{width:22px;height:22px;display:block;margin:auto}
+.ni div{font-size:10px;margin-top:3px}
+</style></head><body>
+<div class="top"><div class="logo">FAME</div></div>
+<div class="tabs">
+<div class="t active"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Live</div>
+<div class="t"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> Chat</div>
+<div class="t"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v9a6 6 0 0 0 12 0V2z"/></svg> Fame Wall</div>
 </div>
 
-<div class="tabs"><div class="tab active">LIVE</div><div class="tab">CHAT</div><div class="tab">WALL</div></div>
+<div class="st"><p>Stories</p><div class="story-row">
+<div class="s"><div class="r you"><div class="plus">+</div></div><div class="sn">Your Story</div></div>
+<div class="s"><div class="r"><div class="r2"><img src="https://i.pravatar.cc/100?img=5"></div></div><div class="sn">amelia._</div></div>
+<div class="s"><div class="r"><div class="r2"><img src="https://i.pravatar.cc/100?img=8"></div></div><div class="sn">jordan.k</div></div>
+<div class="s"><div class="r"><div class="r2"><img src="https://i.pravatar.cc/100?img=9"></div></div><div class="sn">luxe_d</div></div>
+<div class="s"><div class="r"><div class="r2"><img src="https://i.pravatar.cc/100?img=12"></div></div><div class="sn">marc._</div></div>
+</div></div>
 
-<div class="feed">
 <div class="card">
-<div class="card-media">
-<img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800&q=80">
-<div class="play"><svg width="20" height="20" viewBox="0 0 24 24" fill="#E8D5A3"><path d="M8 5.14v14l11-7-11-7z"/></svg></div>
-<div class="side">
-<div class="action"><div class="icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white">
+<div class="ch"><div class="u"><div class="av"><img src="https://i.pravatar.cc/100?img=5"></div><div><div class="un">noir.moda ✓</div><div class="meta">London • 12m ago</div></div></div><div style="display:flex;flex-direction:column;gap:14px"><div class="act"><svg width="20" height="20" viewBox="0 0 24 24" fill="#E8D5A3"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><span>12.4K</span></div></div></div>
+<div class="media"><img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=700"><div class="play"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M8 5.14v14l11-7-11-7z"/></svg></div><div style="position:absolute;right:12px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:18px"><div class="act"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E8D5A3" stroke-width="1.5"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><span>842</span></div><div class="act"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E8D5A3" stroke-width="1.5"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg><span>321</span></div></div><div class="cap" style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.8));display:flex;justify-content:space-between">London nights ✨ fit check #fame #night #style <span class="tag">0:23</span></div></div>
+</div>
+
+<div class="card">
+<div class="ch"><div class="u"><div class="av"><img src="https://i.pravatar.cc/100?img=8"></div><div><div class="un">citylens_london</div><div class="meta">34m ago • Photos</div></div></div><div>•••</div></div>
+<div class="media" style="height:200px"><img src="https://images.unsplash.com/photo-1529655683826-aba9b3e77383?w=700"><div class="cap" style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.9))">Late night views from Southbank 🌙✨ golden hour turned midnight. #london #citylens #fameapp</div></div>
+<div style="display:flex;gap:20px;padding:10px 14px"><span style="color:#E8D5A3">♡ 8.7K</span><span style="color:#E8D5A3">○ 291</span><span style="color:#E8D5A3">↗ 104</span></div>
+</div>
+
+<div style="height:80px"></div>
+<div class="nav">
+<div class="ni active"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><div>Feed</div></div>
+<div class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg><div>Explorer</div></div>
+<div class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg><div>Create</div></div>
+<div class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><div>Inbox</div></div>
+<div class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><div>Profile</div></div>
+</div>
+</body></html>
