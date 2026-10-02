@@ -128,12 +128,12 @@ export default function App() {
     <TouchableOpacity style={{marginLeft:'auto', backgroundColor:'#222', padding:6, borderRadius:6}}><Text style={{color:'#fff'}}>⬇️ Download</Text></TouchableOpacity>
     <TouchableOpacity style={{marginLeft:8, backgroundColor:'red', padding:6, borderRadius:6}}><Text style={{color:'#fff'}}>🗑️</Text></TouchableOpacity>
   </View>
-  <Video source={{uri: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'}} style={{width:'100%', height:400}} shouldPlay isLooping resizeMode="cover" />
+   <Video source={{uri: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'}} style={{width:'100%', height:300}} />
 <View style={{flexDirection:'row', padding:10, gap:15}}>
 <Text style={{color:'#fff'}}>❤️ 12.4K</Text>
 <Text style={{color:'#fff'}}>💬 342</Text>
-</View></View>
-      </ScrollView>
+</View>
+              </View>
 
       <View style={styles.bottomNav}>
         {['Feed','Explorer','Create','Inbox','Profile'].map((name,i) => (
