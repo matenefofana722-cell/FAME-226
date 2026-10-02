@@ -192,4 +192,42 @@ document.getElementById('btn-'+p).style.color='#E9D9A8';
 window.scrollTo(0,0);
 }
 </script>
-</body></html>
+<!-- FAME REAL BACKEND - NO CARD -->
+<script type="module">
+import { uploadFameVideo, getFameFeed } from './supabase.js'
+
+async function loadFeed(){
+  try{
+    const videos = await getFameFeed()
+    const feed = document.querySelector('.feed')
+    if(!feed ||!videos || videos.length===0) return
+    feed.innerHTML = ''
+    videos.forEach(v=>{
+      feed.innerHTML += `
+      <div style="position:relative;background:#111;margin-bottom:8px;border-radius:12px;overflow:hidden">
+        <video src="${v.url}" controls playsinline loop style="width:100%;max-height:68vh;background:#000"></video>
+        <div style="position:absolute;bottom:12px;left:12px;color:#fff;text-shadow:0 1px 5px #000">
+          <b>@${v.username || 'you'}</b><br><span style="font-size:13px">${v.caption || ''}</span>
+        </div>
+      </div>`
+    })
+  }catch(e){ console.log('Feed load:', e.message) }
+}
+loadFeed()
+
+window.postFameVideo = async () => {
+  const file = document.getElementById('fameFile')?.files[0]
+  const caption = document.getElementById('fameCaption')?.value || 'London nights ✨ #fame'
+  const btn = document.getElementById('postBtn')
+  if(!file){ alert('Choose a video first bro!'); return }
+  if(btn){ btn.innerText = 'Uploading to FAME... ⏳'; btn.disabled = true }
+  try{
+    await uploadFameVideo(file, caption)
+    const modal = document.getElementById('uploadModal')
+    if(modal) modal.style.display='none'
+    alert('Posted to FAME! 🔥')
+    loadFeed()
+  }catch(e){ alert('Error: '+e.message) }
+  if(btn){ btn.innerText = 'Post to FAME'; btn.disabled = false }
+}
+</script></body></html>
