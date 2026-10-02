@@ -129,7 +129,10 @@ export default function App() {
     <TouchableOpacity style={{marginLeft:8, backgroundColor:'red', padding:6, borderRadius:6}}><Text style={{color:'#fff'}}>🗑️</Text></TouchableOpacity>
   </View>
   <Video source={{uri: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'}} style={{width:'100%', height:400}} shouldPlay isLooping resizeMode="cover" />
-</View>
+<View style={{flexDirection:'row', padding:10, gap:15}}>
+<Text style={{color:'#fff'}}>❤️ 12.4K</Text>
+<Text style={{color:'#fff'}}>💬 342</Text>
+</View></View>
       </ScrollView>
 
       <View style={styles.bottomNav}>
