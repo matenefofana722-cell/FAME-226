@@ -3,7 +3,7 @@ import { View, Text, ScrollView, TouchableOpacity, Image, StyleSheet, StatusBar,
 import { StatusBar as ExpoStatusBar } from 'expo-status-bar';
 import { Camera, CameraType } from 'expo-camera';
 import { supabase } from './supabase';
-
+import { Video } from 'expo-av';
 export default function App() {
   const [activeTab, setActiveTab] = useState('Live');
   const [isLive, setIsLive] = useState(false);
@@ -122,9 +122,14 @@ export default function App() {
         </View>
 
         <View style={styles.post}>
-          <View style={styles.postHeader}><Image source={{uri: 'https://i.pravatar.cc/100?img=5'}} style={styles.avatar} /><View><Text style={styles.postUser}>noir.moda ✓</Text><Text style={styles.postLocation}>London • 12m ago</Text></View></View>
-          <Image source={{uri: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800'}} style={styles.postMedia} />
-        </View>
+  <View style={[styles.postHeader, {justifyContent:'space-between'}]}>
+    <Image source={{uri: 'https://i.pravatar.cc/100'}} style={{width:32,height:32,borderRadius:16}} />
+    <Text style={{color:'#fff', marginLeft:8}}>amelia._</Text>
+    <TouchableOpacity style={{marginLeft:'auto', backgroundColor:'#222', padding:6, borderRadius:6}}><Text style={{color:'#fff'}}>⬇️ Download</Text></TouchableOpacity>
+    <TouchableOpacity style={{marginLeft:8, backgroundColor:'red', padding:6, borderRadius:6}}><Text style={{color:'#fff'}}>🗑️</Text></TouchableOpacity>
+  </View>
+  <Video source={{uri: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4'}} style={{width:'100%', height:400}} shouldPlay isLooping resizeMode="cover" />
+</View>
       </ScrollView>
 
       <View style={styles.bottomNav}>
