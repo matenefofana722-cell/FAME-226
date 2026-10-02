@@ -1,28 +1,18 @@
 {
-  "name": "FAME",
-  "short_name": "FAME",
-  "description": "FAME - Go LIVE, Grow Your Fame. Live stream and connect with fans.",
-  "start_url": "/FAME-226/",
-  "scope": "/FAME-226/",
-  "display": "standalone",
   "background_color": "#000000",
-  "theme_color": "#000000",
-  "orientation": "portrait",
   "dir": "ltr",
-  "lang": "en",
-  "categories": ["social", "entertainment", "social networking"],
+  "display": "standalone",
+  "name": "Fame",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "Fame",
+  "start_url": "/",
+  "theme_color": "#000000",
+  "id": "com.fameofficial.app",
+  "categories": ["entertainment", "photo & video", "social", "social networking"],
+  "description": "FAME - Go LIVE, Grow Your Fame. Live stream, chat with fans, and become famous.",
   "icons": [
-    {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
+    {"src": "icon-192.png", "sizes": "192x192", "type": "image/png"},
+    {"src": "icon-512.png", "sizes": "512x512", "type": "image/png"}
   ]
 }
