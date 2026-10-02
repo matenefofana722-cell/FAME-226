@@ -1,12 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Fame</title>
-<link rel="manifest" href="./manifest.json">
-<meta name="theme-color" content="#000000">
-<style>body{background:#000;color:#FFD700;display:flex;justify-content:center;align-items:center;height:100vh;margin:0;font-family:serif;font-size:70px;font-weight:900;letter-spacing:10px;}</style>
-</head>
-<body>FAME</body>
-</html>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>FAME</title>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:#080808;color:#fff;font-family:'Inter',sans-serif;max-width:430px;margin:0 auto;-webkit-font-smoothing:antialiased}
+.logo{font-family:'Instrument Serif',serif;font-size:38px;letter-spacing:8px;color:#E8D5A3;text-align:center;padding:22px 0 16px;font-weight:400}
+.tabs{display:flex;gap:8px;padding:0 16px}
+.tab{flex:1;height:40px;border-radius:100px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:12.5px;font-weight:500;letter-spacing:.3px;border:1px solid #222;background:#111;color:#666;transition:.2s}
+.tab.active{background:#E8D5A3;color:#000;border-color:#E8D5A3}
+.dot{width:6px;height:6px;background:#000;border-radius:50%}
+.stories{display:flex;gap:14px;padding:20px 16px;overflow-x:auto;scrollbar-width:none}
+.stories::-webkit-scrollbar{display:none}
+.s{ text-align:center; min-width:62px }
+.ring{width:62px;height:62px;border-radius:50%;padding:1.5px;background:linear-gradient(180deg,#E8D5A3,#8a7440)}
+.ring div{width:100%;height:100%;border-radius:50%;background:#080808;padding:2px}
+.ring img{width:100%;height:100%;border-radius:50%;object-fit:cover}
+.add{width:62px;height:62px;border-radius:50%;background:#1a1a1a;border:1px dashed #333;display:flex;align-items:center;justify-content:center}
+.s span{font-size:10.5px;color:#777;margin-top:7px;display:block;font-weight:400;letter-spacing:.2px}
+.post{padding:18px 16px 16px;border-top:1px solid #121212}
+.h{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.av{width:36px;height:36px;border-radius:50%;object-fit:cover}
+.meta b{font-size:13px;font-weight:600;letter-spacing:.2px;display:flex;align-items:center;gap:4px}
+.meta p{font-size:11px;color:#555;font-weight:400;margin-top:1px}
+.verified{width:14px;height:14px;background:#E8D5A3;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#000;font-size:9px;font-weight:800}
+.media{position:relative;border-radius:16px;overflow:hidden;background:#101010;aspect-ratio:4/5}
+.media img{width:100%;height:100%;object-fit:cover}
+.play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+.play span{width:46px;height:46px;border-radius:50%;background:rgba(0,0,0,.45);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center}
+.time{position:absolute;right:10px;bottom:10px;background:rgba(0,0,0,.6);backdrop-filter:blur(10px);padding:4px 9px;border-radius:100px;font-size:10.5px;font-weight:500}
+.actions{position:absolute;right:10px;bottom:54px;display:flex;flex-direction:column;gap:16px;align-items:center}
+.act{display:flex;flex-direction:column;align-items:center;gap:4px;color:#fff}
+.act i{width:28px;height:28px;display:flex;align-items:center;justify-content:center}
+.act span{font-size:11px;font-weight:500}
+.caption{font-size:12.5px;line-height:18px;color:#aaa;margin-top:10px;font-weight:300}
+.caption strong{color:#fff;font-weight:500
