@@ -2,30 +2,67 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FAME</title>
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#08080c">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#08080c;color:#fff;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;padding-bottom:90px;overflow-x:hidden}
-.top{padding:22px 0 14px;text-align:center;font-family:Georgia,serif;font-size:38px;letter-spacing:7px;color:#d8bc7a;font-weight:900}
+body{background:#1c1c24;color:#fff;font-family:-apple-system,sans-serif;padding-bottom:90px}
+.top{text-align:center;padding:22px 0 14px;font-size:38px;letter-spacing:7px;color:#e6c78a;font-family:Georgia,serif;font-weight:900;text-shadow:0 0 20px rgba(230,199,138,.3)}
 .tabs{display:flex;gap:8px;padding:0 14px 16px}
-.tabs button{flex:1;display:flex;align-items:center;justify-content:center;gap:6px;padding:11px;border-radius:12px;border:1.2px solid #d8bc7a;background:#12121a;color:#d8bc7a;font-size:13px;font-weight:700}
-.tabs button.active{background:#d8bc7a;color:#000}
-.label{padding:0 16px 10px;color:#888;font-size:13px;letter-spacing:.3px}
-.stories{display:flex;gap:14px;padding:0 14px 20px;overflow-x:auto;scrollbar-width:none}
+.tabs button{flex:1;padding:11px;border-radius:12px;border:1.2px solid #e6c78a;background:#2a2a34;color:#e6c78a;font-weight:700}
+.tabs button.active{background:#e6c78a;color:#1c1c24}
+.label{padding:0 16px 10px;color:#aaa;font-size:13px}
+.stories{display:flex;gap:14px;padding:0 14px 20px;overflow:auto}
 .stories::-webkit-scrollbar{display:none}
-.s{text-align:center;min-width:68px;font-size:11px;color:#9a9a9a}
-.ring{width:64px;height:64px;border-radius:50%;border:2px solid #d8bc7a;padding:2.5px;margin:0 auto 6px;background:#15151f}
-.ring img{width:100%;height:100%;border-radius:50%;object-fit:cover;display:block}
-.you-wrap{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#f8c6c6,#e8a0a0);padding:2.5px;margin:0 auto 6px}
-.you{width:100%;height:100%;border-radius:50%;background:#12121a;border:1.8px solid #d8bc7a;display:flex;align-items:center;justify-content:center;color:#d8bc7a;font-size:30px}
+.s{text-align:center;min-width:68px;font-size:11px;color:#bbb}
+.ring{width:64px;height:64px;border-radius:50%;border:2px solid #e6c78a;padding:2.5px;margin:0 auto 6px;background:#2a2a34}
+.ring img{width:100%;height:100%;border-radius:50%;object-fit:cover}
+.you-wrap{width:64px;height:64px;border-radius:50%;background:#f7c9;padding:2.5px;margin:0 auto 6px}
+.you{width:100%;height:100%;border-radius:50%;background:#2a2a34;border:1.8px solid #e6c78a;display:flex;align-items:center;justify-content:center;font-size:30px;color:#e6c78a}
 .feed{padding:0 12px;display:flex;flex-direction:column;gap:14px}
-.card{background:#12121a;border-radius:18px;overflow:hidden;border:1px solid #1e1e2c}
+.card{background:#2a2a34;border-radius:18px;overflow:hidden;border:1px solid #3a3a46;box-shadow:0 4px 20px rgba(0,0,0,.3)}
 .chead{display:flex;align-items:center;gap:10px;padding:11px 12px}
-.chead img{width:36px;height:36px;border-radius:50%;border:1.6px solid #d8bc7a}
-.chead .name{font-size:13px;font-weight:700}
-.chead .meta{font-size:11px;color:#d8bc7a}
+.chead img{width:36px;height:36px;border-radius:50%;border:1.6px solid #e6c78a}
+.name{font-size:13px;font-weight:700}.meta{font-size:11px;color:#e6c78a}
 .cmedia{position:relative;background:#000;display:flex}
-.cmedia .
+.main-img{width:82%;height:240px;object-fit:cover}
+.side{width:18%;background:#2a2a34;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;color:#e6c78a;font-size:11px}
+.badge{position:absolute;left:10px;bottom:10px;background:#e6c78a;color:#000;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:800}
+.play{position:absolute;left:41%;top:50%;transform:translate(-50%,-50%);width:42px;height:42px;border-radius:50%;background:rgba(0,0,0,.5);border:2px solid #fff;display:flex;align-items:center;justify-content:center}
+.cap{padding:10px 12px;font-size:12.5px;color:#ddd}
+.cfoot{padding:0 12px 11px;display:flex;gap:14px;color:#e6c78a;font-size:11.5px}
+.page{display:none}.page.active{display:block}
+.nav{position:fixed;bottom:0;left:0;right:0;background:#1c1c24;border-top:1px solid #3a3a46;display:flex;justify-content:space-around;padding:10px 0 22px}
+.nav button{background:none;border:none;color:#777;font-size:10px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:4px}
+.nav button.active{color:#e6c78a}
+.nav span{font-size:20px}
+</style>
+</head>
+<body>
+<div class="top">FAME</div>
+<div class="tabs"><button class="active">• Live</button><button>Chat</button><button>Fame Wall</button></div>
+<div class="label">Stories</div>
+<div class="stories">
+<div class="s"><div class="you-wrap"><div class="you">+</div></div>Your Story</div>
+<div class="s"><div class="ring"><img src="https://i.pravatar.cc/150?img=5"></div>amelia._</div>
+<div class="s"><div class="ring"><img src="https://i.pravatar.cc/150?img=12"></div>jordan.k</div>
+<div class="s"><div class="ring"><img src="https://i.pravatar.cc/150?img=32"></div>luxe_d</div>
+<div class="s"><div class="ring"><img src="https://i.pravatar.cc/150?img=15"></div>marc._</div>
+</div>
+<div id="feed" class="page active"><div class="feed">
+<div class="card"><div class="chead"><img src="https://i.pravatar.cc/150?img=5"><div><div class="name">noir.moda ✓</div><div class="meta">London • 12m ago</div></div></div><div class="cmedia"><img class="main-img" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=700"><div class="play">▶</div><div class="badge">0:23</div><div class="side"><div>♥<br>12.4K</div><div>💬<br>842</div><div>↗<br>321</div></div></div><div class="cap">London nights ✨ fit check #fame #night #style</div></div>
+<div class="card"><div class="chead"><img src="https://i.pravatar.cc/150?img=33"><div><div class="name">citylens_london</div><div class="meta">34m ago • Photos</div></div></div><img src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?w=700" style="width:100%;height:220px;object-fit:cover"><div class="cfoot"><span>♡ 8.7K</span><span>○ 291</span><span>↗ 104</span></div><div class="cap">Late night views from Southbank 🌙✨ golden hour turned midnight. #london #citylens #fameapp</div></div>
+</div></div>
+<div id="explorer" class="page"><p style="text-align:center;padding:80px;color:#888">Explorer NW10 🔥</p></div>
+<div id="inbox" class="page"><p style="text-align:center;padding:80px;color:#888">Inbox</p></div>
+<div id="profile" class="page"><div style="text-align:center;padding:60px"><div style="width:90px;height:90px;border-radius:50%;background:#e6c78a;margin:0 auto 12px"></div><p style="color:#e6c78a">@london_boy</p></div></div>
+<div class="nav">
+<button class="active" onclick="go('feed',this)"><span>⌂</span>Feed</button>
+<button onclick="go('explorer',this)"><span>◎</span>Explorer</button>
+<button onclick="alert('Create soon')"><span style="width:28px;height:28px;border:1.6px solid #e6c78a;border-radius:50%;display:flex;align-items:center;justify-content:center">+</span>Create</button>
+<button onclick="go('inbox',this)"><span>✉</span>Inbox</button>
+<button onclick="go('profile',this)"><span>○</span>Profile</button>
+</div>
+<script>function go(id,b){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active')}</script>
+</body>
+</html>
