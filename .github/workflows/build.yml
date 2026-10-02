@@ -16,11 +16,8 @@ jobs:
 
       - uses: actions/setup-java@v5
         with:
-          distribution: 'zulu'
-          java-version: '17'
-
-      - name: Install Expo CLI
-        run: npm install -g expo-cli eas-cli
+          distribution: zulu
+          java-version: 17
 
       - name: Install deps
         run: npm install --legacy-peer-deps
@@ -32,7 +29,7 @@ jobs:
         run: |
           cd android
           chmod +x gradlew
-         ./gradlew bundleRelease --no-daemon
+         ./gradlew bundleRelease
 
       - name: Upload AAB
         uses: actions/upload-artifact@v4
