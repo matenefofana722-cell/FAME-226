@@ -1,97 +1,169 @@
 <!DOCTYPE html>
 <html><head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
 <title>FAME</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600&family=Inter:wght@400;500;600&display=swap');
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#08080A;color:#fff;font-family:Inter,sans-serif;max-width:440px;margin:auto;overflow-x:hidden}
-.logo{font-family:'Cormorant Garamond',serif;font-size:46px;letter-spacing:9px;color:#E9D9A8;text-align:center;padding:20px 0 10px;font-weight:600}
-.tabs{display:flex;gap:9px;padding:10px 16px 18px}
-.tab{flex:1;height:40px;display:flex;align-items:center;justify-content:center;gap:6px;border-radius:10px;border:1.2px solid #3A342A;font-size:13px;color:#9A8C74;background:#11110E;font-weight:500}
+body{background:#08080A;color:#fff;font-family:Inter,sans-serif;max-width:440px;margin:auto;overflow:hidden;height:100vh;display:flex;flex-direction:column}
+.logo{font-family:'Cormorant Garamond',serif;font-size:38px;letter-spacing:9px;color:#E9D9A8;text-align:center;padding:16px 0 8px}
+.tabs{display:flex;gap:8px;padding:0 16px 10px}
+.tab{flex:1;height:38px;display:flex;align-items:center;justify-content:center;gap:6px;border-radius:10px;border:1px solid #2A241C;font-size:12px;color:#8A7E68;background:#11110E;cursor:pointer}
 .tab.active{background:#E9D9A8;color:#000;border-color:#E9D9A8}
-.stories-title{font-size:13px;color:#9A9A9A;padding:0 16px 12px}
-.stories{display:flex;gap:14px;padding:0 16px 18px;overflow-x:auto}
+.stories-title{font-size:12px;color:#777;padding:0 16px 8px}
+.stories{display:flex;gap:12px;padding:0 16px 12px;overflow-x:auto;flex-shrink:0}
 .stories::-webkit-scrollbar{display:none}
-.s{ text-align:center;min-width:68px }
-.ring{width:66px;height:66px;border-radius:50%;padding:2px;background:linear-gradient(135deg,#E9D9A8,#8B7355)}
-.ring-inner{width:100%;height:100%;border-radius:50%;background:#111;border:2.5px solid #000;overflow:hidden}
+.s{text-align:center;min-width:60px;cursor:pointer}
+.ring{width:60px;height:60px;border-radius:50%;padding:2px;background:linear-gradient(135deg,#E9D9A8,#8B7355)}
+.ring-inner{width:100%;height:100%;border-radius:50%;background:#111;border:2px solid #000;overflow:hidden;display:flex;align-items:center;justify-content:center}
 .ring-inner img{width:100%;height:100%;object-fit:cover}
-.ring.you{background:#1C1C1E;display:flex;align-items:center;justify-content:center}
-.ring.you .plus{width:54px;height:54px;background:#E9D9A8;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#000;font-size:32px;font-weight:300}
-.sname{font-size:11px;color:#888;margin-top:6px}
-.feed{padding:0 12px 90px}
-.card{background:#121215;border:1px solid #1E1E20;border-radius:16px;overflow:hidden;margin-bottom:14px}
-.card-head{display:flex;align-items:center;justify-content:space-between;padding:12px 12px 10px}
-.user{display:flex;align-items:center;gap:10px}
-.u-ring{width:36px;height:36px;border-radius:50%;padding:1.5px;background:linear-gradient(135deg,#E9D9A8,#8B7355)}
+.ring.you{background:#1C1C1E;border:1px dashed #333;display:flex;align-items:center;justify-content:center}
+.plus{width:48px;height:48px;background:#E9D9A8;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#000;font-size:28px}
+.sname{font-size:10px;color:#888;margin-top:5px}
+.feed{flex:1;overflow-y:scroll;scroll-snap-type:y mandatory;padding:0 10px 10px}
+.feed::-webkit-scrollbar{display:none}
+.card{scroll-snap-align:start;background:#121215;border:1px solid #1E1E20;border-radius:16px;overflow:hidden;margin-bottom:14px;position:relative}
+.card-head{display:flex;align-items:center;justify-content:space-between;padding:10px 12px}
+.user{display:flex;align-items:center;gap:9px}
+.u-ring{width:34px;height:34px;border-radius:50%;padding:1.5px;background:linear-gradient(135deg,#E9D9A8,#8B7355)}
 .u-ring img{width:100%;height:100%;border-radius:50%;border:2px solid #121215;object-fit:cover}
-.uname{font-size:13.5px;font-weight:600}
-.sub{font-size:11px;color:#777}
-.right-stats{display:flex;flex-direction:column;align-items:center;gap:14px;padding-right:4px}
-.stat{display:flex;flex-direction:column;align-items:center;gap:4px}
-.stat b{font-size:11px;color:#fff;font-weight:500}
-.media{position:relative;height:420px;background:#000}
-.media img{width:100%;height:100%;object-fit:cover}
-.play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:46px;height:46px;border-radius:50%;background:rgba(0,0,0,0.5);border:1.5px solid rgba(255,255,255,0.35);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
-.caption-bar{position:absolute;bottom:0;left:0;right:0;padding:10px 12px;background:linear-gradient(transparent,rgba(0,0,0,0.85));font-size:11.5px;color:#D0C5A8;display:flex;justify-content:space-between;align-items:flex-end}
-.time-tag{background:#E9D9A8;color:#000;padding:3px 8px;border-radius:12px;font-size:11px;font-weight:600}
-.bot-row{padding:10px 12px;display:flex;gap:18px;font-size:12px;color:#E9D9A8}
-.nav{position:fixed;bottom:0;left:0;right:0;max-width:440px;margin:auto;background:#09090B;border-top:1px solid #1E1E20;display:flex;justify-content:space-around;padding:10px 0 20px}
-.ni{color:#4A4A4A;text-align:center;flex:1}
+.uname{font-size:12.5px;font-weight:600}
+.sub{font-size:10px;color:#777}
+.media{position:relative;height:460px;background:#000;cursor:pointer}
+.media img,.media video{width:100%;height:100%;object-fit:cover}
+.play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:50px;height:50px;border-radius:50%;background:rgba(0,0,0,0.5);border:1.5px solid rgba(255,255,255,0.4);display:flex;align-items:center;justify-content:center;backdrop-filter:blur(6px);pointer-events:none}
+.side-actions{position:absolute;right:10px;bottom:50px;display:flex;flex-direction:column;gap:16px}
+.act{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer}
+.act svg{transition:0.2s}
+.act.liked svg{fill:#E9D9A8;stroke:#E9D9A8}
+.act b{font-size:11px;color:#fff}
+.caption-bar{position:absolute;bottom:0;left:0;right:0;padding:10px 12px;background:linear-gradient(transparent,rgba(0,0,0,0.85));font-size:11px;color:#E9D9A8;display:flex;justify-content:space-between}
+.time-tag{background:#E9D9A8;color:#000;padding:2px 7px;border-radius:10px;font-size:10px;font-weight:600}
+.nav{flex-shrink:0;display:flex;justify-content:space-around;padding:10px 0 18px;background:#09090B;border-top:1px solid #1E1E20}
+.ni{color:#4A4A4A;text-align:center;flex:1;cursor:pointer}
 .ni.active{color:#E9D9A8}
-.ni svg{width:22px;height:22px;margin:auto;display:block;stroke-width:1.6}
-.ni span{font-size:9px;margin-top:4px;display:block;letter-spacing:0.3px}
-</style></head><body>
+.ni svg{width:22px;height:22px;display:block;margin:auto}
+.ni span{font-size:9px;margin-top:3px;display:block}
+#storyView{position:fixed;inset:0;background:#000;z-index:999;display:none;align-items:center;justify-content:center}
+#storyView img{width:100%;max-width:440px;height:100%;object-fit:cover}
+#uploadModal{position:fixed;inset:0;background:rgba(0,0,0,0.9);z-index:998;display:none;align-items:center;justify-content:center;padding:20px}
+.box{background:#141416;border:1px solid #2A2A2A;border-radius:16px;padding:20px;width:100%;max-width:340px}
+.box h3{font-size:16px;color:#E9D9A8;margin-bottom:12px}
+.box input{width:100%;padding:10px;background:#0A0A0A;border:1px solid #2A2A2A;border-radius:8px;color:#fff;margin-bottom:10px}
+.btn{width:100%;padding:12px;background:#E9D9A8;color:#000;border:none;border-radius:10px;font-weight:600;cursor:pointer}
+.tab-page{display:none;flex:1;overflow-y:auto;padding:20px 16px;color:#888}
+.tab-page.active{display:block}
+</style>
+</head><body>
 <div class="logo">FAME</div>
 <div class="tabs">
-<div class="tab active">• <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg> Live</div>
-<div class="tab"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M8 12h.01M12 12h.01M16 12h.01M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg> Chat</div>
-<div class="tab"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v9a6 6 0 0 0 12 0V2z"/></svg> Fame Wall</div>
+<div class="tab active" onclick="switchTab('live',this)">● Live</div>
+<div class="tab" onclick="switchTab('chat',this)">Chat</div>
+<div class="tab" onclick="switchTab('wall',this)">Fame Wall</div>
 </div>
 
+<div id="livePage" style="display:flex;flex-direction:column;flex:1;overflow:hidden">
 <div class="stories-title">Stories</div>
-<div class="stories">
-<div class="s"><div class="ring you"><div class="plus">+</div></div><div class="sname">Your Story</div></div>
-<div class="s"><div class="ring"><div class="ring-inner"><img src="https://i.pravatar.cc/150?img=5"></div></div><div class="sname">amelia._</div></div>
-<div class="s"><div class="ring"><div class="ring-inner"><img src="https://i.pravatar.cc/150?img=8"></div></div><div class="sname">jordan.k</div></div>
-<div class="s"><div class="ring"><div class="ring-inner"><img src="https://i.pravatar.cc/150?img=9"></div></div><div class="sname">luxe_d</div></div>
-<div class="s"><div class="ring"><div class="ring-inner"><img src="https://i.pravatar.cc/150?img=12"></div></div><div class="sname">marc._</div></div>
+<div class="stories" id="storyRow">
+<div class="s" onclick="openUpload()"><div class="ring you"><div class="plus">+</div></div><div class="sname">Your Story</div></div>
+</div>
+<div class="feed" id="feed"></div>
 </div>
 
-<div class="feed">
-<div class="card">
-<div class="card-head">
-<div class="user"><div class="u-ring"><img src="https://i.pravatar.cc/150?img=5"></div><div><div class="uname">noir.moda <span style="color:#E9D9A8">✔</span></div><div class="sub">London • 12m ago</div></div></div>
-<div class="right-stats" style="flex-direction:row;gap:0;padding:0">
-<div class="stat" style="align-items:center"><svg width="20" height="20" viewBox="0 0 24 24" fill="#E9D9A8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><b>12.4K</b></div>
-</div>
-</div>
-<div class="media">
-<img src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800">
-<div class="play"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M8 5.14v14l11-7-11-7z"/></svg></div>
-<div style="position:absolute;right:12px;top:46%;display:flex;flex-direction:column;gap:18px">
-<div class="stat"><svg width="22" height="22" viewBox="0 0 24 24" fill="#E9D9A8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><b>12.4K</b></div>
-<div class="stat"><svg width="22" height="22" viewBox="0 0 24 24" fill="#E9D9A8"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><b>842</b></div>
-<div class="stat"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E9D9A8" stroke-width="1.8"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg><b>321</b></div>
-</div>
-<div class="caption-bar"><span>London nights ✨ fit check #fame #night #style</span><span class="time-tag">0:23</span></div>
-</div>
-</div>
-
-<div class="card">
-<div class="card-head"><div class="user"><div class="u-ring"><img src="https://i.pravatar.cc/150?img=8"></div><div><div class="uname">citylens_london</div><div class="sub">34m ago • Photos</div></div></div><div style="color:#555">•••</div></div>
-<div class="media" style="height:220px"><img src="https://images.unsplash.com/photo-1529655683826-aba9b3e77383?w=800"><div class="caption-bar" style="background:linear-gradient(transparent,rgba(0,0,0,0.9))"><span>Late night views from Southbank 🌙✨ golden hour turned midnight. #london #citylens #fameapp</span></div></div>
-<div class="bot-row"><span>♡ 8.7K</span><span>◯ 291</span><span>↗ 104</span></div>
-</div>
-</div>
+<div id="chatPage" class="tab-page"><h3 style="color:#E9D9A8;margin-bottom:10px">London Live Chat</h3><div id="chatList"></div><input id="chatInput" placeholder="Say something..." style="width:100%;padding:12px;margin-top:12px;background:#111;border:1px solid #222;border-radius:10px;color:#fff" onkeydown="if(event.key==='Enter')sendChat()"></div>
+<div id="wallPage" class="tab-page"><h3 style="color:#E9D9A8;margin-bottom:14px">Fame Wall — Top London</h3><div id="wallList"></div></div>
 
 <div class="nav">
-<div class="ni active"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span>Feed</span></div>
-<div class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg><span>Explorer</span></div>
-<div class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg><span>Create</span></div>
-<div class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>Inbox</span></div>
+<div class="ni active" onclick="switchTab('live',document.querySelectorAll('.tab')[0])"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span>Feed</span></div>
+<div class="ni" onclick="switchTab('chat',document.querySelectorAll('.tab')[1])"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"/></svg><span>Explorer</span></div>
+<div class="ni" onclick="openUpload()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg><span>Create</span></div>
+<div class="ni" onclick="switchTab('chat',document.querySelectorAll('.tab')[1])"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M4 4h16c1.1 0 2.9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg><span>Inbox</span></div>
 <div class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg><span>Profile</span></div>
 </div>
-</body></html>
+
+<div id="storyView" onclick="this.style.display='none'"><img id="storyImg"></div>
+<div id="uploadModal"><div class="box">
+<h3>Add Your Video 🔥</h3>
+<input type="file" id="videoFile" accept="video/*,image/*">
+<input id="videoCaption" placeholder="Caption #fame #london">
+<button class="btn" onclick="uploadVideo()">Post to FAME</button>
+<button style="width:100%;margin-top:8px;background:transparent;color:#666;border:none" onclick="document.getElementById('uploadModal').style.display='none'">Cancel</button>
+</div></div>
+
+<script>
+const defaultPosts=[
+{user:'noir.moda',verified:true,loc:'London',time:'12m ago',likes:12400,comments:842,shares:321,caption:'London nights ✨ fit check #fame #night #style',img:'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800',avatar:'https://i.pravatar.cc/150?img=5',duration:'0:23'},
+{user:'citylens_london',verified:false,loc:'34m ago • Photos',time:'',likes:8700,comments:291,shares:104,caption:'Late night views from Southbank 🌙✨',img:'https://images.unsplash.com/photo-1529655683826-aba9b3e77383?w=800',avatar:'https://i.pravatar.cc/150?img=8',duration:''},
+];
+const storiesData=[{name:'amelia._',img:'https://i.pravatar.cc/150?img=5'},{name:'jordan.k',img:'https://i.pravatar.cc/150?img=8'},{name:'luxe_d',img:'https://i.pravatar.cc/150?img=9'},{name:'marc._',img:'https://i.pravatar.cc/150?img=12'}];
+let posts=JSON.parse(localStorage.getItem('fame_posts')||'null')||defaultPosts;
+function render(){
+const feed=document.getElementById('feed');feed.innerHTML='';
+posts.forEach((p,i)=>{
+const el=document.createElement('div');el.className='card';
+el.innerHTML=`<div class="card-head"><div class="user"><div class="u-ring"><img src="${p.avatar}"></div><div><div class="uname">${p.user} ${p.verified?'✔':''}</div><div class="sub">${p.loc} ${p.time}</div></div></div></div>
+<div class="media" onclick="playPause(this)">${p.img.includes('.mp4')?`<video src="${p.img}" loop muted playsinline></video>`:`<img src="${p.img}">`}<div class="play"><svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M8 5.14v14l11-7-11-7z"/></svg></div>
+<div class="side-actions">
+<div class="act ${p.liked?'liked':''}" onclick="likePost(${i},this);event.stopPropagation()"><svg width="22" height="22" viewBox="0 0 24 24" fill="${p.liked?'#E9D9A8':'none'}" stroke="#E9D9A8" stroke-width="1.8"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg><b>${formatNum(p.likes)}</b></div>
+<div class="act" onclick="event.stopPropagation();document.getElementById('chatPage').classList.add('active');switchTab('chat',document.querySelectorAll('.tab')[1])"><svg width="22" height="22" viewBox="0 0 24 24" fill="#E9D9A8"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg><b>${p.comments}</b></div>
+<div class="act" onclick="event.stopPropagation();navigator.share?navigator.share({title:'FAME',text:p.caption,url:location.href}):alert('Copied link!')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#E9D9A8" stroke-width="1.8"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg><b>${p.shares}</b></div>
+</div><div class="caption-bar"><span>${p.caption}</span>${p.duration?`<span class="time-tag">${p.duration}</span>`:''}</div></div>`;
+feed.appendChild(el);
+});
+renderStories();renderWall();
+}
+function renderStories(){
+const row=document.getElementById('storyRow');
+storiesData.forEach(s=>{
+const d=document.createElement('div');d.className='s';d.innerHTML=`<div class="ring"><div class="ring-inner"><img src="${s.img}"></div></div><div class="sname">${s.name}</div>`;
+d.onclick=()=>{document.getElementById('storyImg').src=s.img;document.getElementById('storyView').style.display='flex'};
+row.appendChild(d);
+});
+}
+function formatNum(n){return n>=1000?(n/1000).toFixed(1)+'K':n}
+function likePost(i,el){
+posts[i].liked=!posts[i].liked;
+posts[i].likes+=posts[i].liked?1:-1;
+el.classList.toggle('liked');
+el.querySelector('b').textContent=formatNum(posts[i].likes);
+el.querySelector('svg').setAttribute('fill',posts[i].liked?'#E9D9A8':'none');
+localStorage.setItem('fame_posts',JSON.stringify(posts));
+}
+function playPause(mediaDiv){
+const v=mediaDiv.querySelector('video');
+if(v){if(v.paused){v.play();mediaDiv.querySelector('.play').style.display='none';v.muted=false}else{v.pause();mediaDiv.querySelector('.play').style.display='flex'}}else{
+const img=mediaDiv.querySelector('img');
+if(mediaDiv.querySelector('video'))return;
+const videoUrl='https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
+mediaDiv.innerHTML=`<video src="${videoUrl}" autoplay loop style="width:100%;height:100%;object-fit:cover"></video><div class="side-actions">${mediaDiv.querySelector('.side-actions').innerHTML}</div><div class="caption-bar">${mediaDiv.querySelector('.caption-bar').innerHTML}</div>`;
+}
+}
+function openUpload(){document.getElementById('uploadModal').style.display='flex'}
+function uploadVideo(){
+const file=document.getElementById('videoFile').files[0];
+const cap=document.getElementById('videoCaption').value||'My FAME drop 🔥 #fame';
+if(!file)return alert('Pick a video/image');
+const url=URL.createObjectURL(file);
+posts.unshift({user:'you',verified:true,loc:'London',time:'now',likes:0,comments:0,shares:0,caption:cap,img:url,avatar:'https://i.pravatar.cc/150?img=32',duration:'0:15',liked:false});
+localStorage.setItem('fame_posts',JSON.stringify(posts));
+document.getElementById('uploadModal').style.display='none';
+render();
+document.getElementById('feed').scrollTop=0;
+}
+function switchTab(name,tabEl){
+document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+if(tabEl)tabEl.classList.add('active');
+document.getElementById('livePage').style.display=name==='live'?'flex':'none';
+document.getElementById('chatPage').classList.toggle('active',name==='chat');
+document.getElementById('wallPage').classList.toggle('active',name==='wall');
+if(name==='live')document.getElementById('livePage').style.display='flex';
+else document.getElementById('livePage').style.display='none';
+}
+function renderWall(){
+document.getElementById('wallList').innerHTML=posts.sort((a,b)=>b.likes-a.likes).map((p,i)=>`<div style="display:flex;align-items:center;gap:10px;padding:10px;background:#111;border-radius:10px;margin-bottom:8px"><span style="color:#E9D9A8;font-weight:700">#${i+1}</span><img src="${p.avatar}" style="width:36px;height:36px;border-radius:50%"><div><div style="color:#fff;font-size:13px">${p.user}</div><div style="font-size:11px">${formatNum(p.likes)} likes</div></div></div>`).join('');
+}
+const chatMsgs=['🔥 London is live!','noir.moda is trending','Who at Southbank rn?'];
+function renderChat(){document.getElementById('chatList').innerHTML=chatMsgs.map(m=>`<div style="padding:8px 10px;background:#111;border-radius:8px;margin-bottom:6px;font-size:13px">${m}</div>`).join('')}
+function sendChat(){const inp=document.getElementById('chatInput');if(!inp.value)return;chatMsgs.push('You: '+inp.value);inp.value='';renderChat()}
+render();renderChat();
+</script></body></html>
