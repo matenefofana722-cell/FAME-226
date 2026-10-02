@@ -1,11 +1,16 @@
 {
   "expo": {
     "name": "FAME",
-    "slug": "fame-226",
+    "slug": "FAME-226",
     "version": "2.0.0",
+    "orientation": "portrait",
+    "platforms": ["android"],
     "android": {
       "package": "com.fameofficial.app",
-      "versionCode": 2
+      "versionCode": 3,
+      "adaptiveIcon": {
+        "backgroundColor": "#000000"
+      }
     }
   }
 }
