@@ -1,4 +1,8 @@
 "plugins": [
-  ["expo-splash-screen", {...}],
-  ["expo-camera", {...}]
+  [
+    "expo-camera",
+    {
+      "cameraPermission": "Allow FAME to access your camera for LIVE"
+    }
+  ]
 ]
