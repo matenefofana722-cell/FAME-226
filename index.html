@@ -6,63 +6,152 @@
 <title>FAME</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
-body{background:#1c1c24;color:#fff;font-family:-apple-system,sans-serif;padding-bottom:90px}
-.top{text-align:center;padding:22px 0 14px;font-size:38px;letter-spacing:7px;color:#e6c78a;font-family:Georgia,serif;font-weight:900;text-shadow:0 0 20px rgba(230,199,138,.3)}
+body{background:#1e1e28;color:#fff;font-family:-apple-system,sans-serif;padding-bottom:90px}
+.top{text-align:center;padding:22px 0 14px;font-size:38px;letter-spacing:7px;color:#e6c78a;font-family:Georgia,serif;font-weight:900}
 .tabs{display:flex;gap:8px;padding:0 14px 16px}
-.tabs button{flex:1;padding:11px;border-radius:12px;border:1.2px solid #e6c78a;background:#2a2a34;color:#e6c78a;font-weight:700}
-.tabs button.active{background:#e6c78a;color:#1c1c24}
-.label{padding:0 16px 10px;color:#aaa;font-size:13px}
+.tabs button{flex:1;padding:11px;border-radius:12px;border:1.2px solid #e6c78a;background:#2a2a36;color:#e6c78a;font-weight:700;transition:.2s}
+.tabs button.active{background:#e6c78a;color:#1e1e28}
+.label{padding:0 16px 10px;color:#888;font-size:13px}
 .stories{display:flex;gap:14px;padding:0 14px 20px;overflow:auto}
 .stories::-webkit-scrollbar{display:none}
-.s{text-align:center;min-width:68px;font-size:11px;color:#bbb}
-.ring{width:64px;height:64px;border-radius:50%;border:2px solid #e6c78a;padding:2.5px;margin:0 auto 6px;background:#2a2a34}
+.s{text-align:center;min-width:68px;font-size:11px;color:#bbb;cursor:pointer}
+.ring{width:64px;height:64px;border-radius:50%;border:2px solid #e6c78a;padding:2.5px;margin:0 auto 6px;background:#2a2a36;transition:.2s}
+.ring:active{transform:scale(.9)}
 .ring img{width:100%;height:100%;border-radius:50%;object-fit:cover}
-.you-wrap{width:64px;height:64px;border-radius:50%;background:#f7c9;padding:2.5px;margin:0 auto 6px}
-.you{width:100%;height:100%;border-radius:50%;background:#2a2a34;border:1.8px solid #e6c78a;display:flex;align-items:center;justify-content:center;font-size:30px;color:#e6c78a}
+.you-wrap{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#e6c78a,#ff8ec8);padding:2.5px;margin:0 auto 6px}
+.you{width:100%;height:100%;border-radius:50%;background:#2a2a36;display:flex;align-items:center;justify-content:center;font-size:28px;color:#e6c78a}
 .feed{padding:0 12px;display:flex;flex-direction:column;gap:14px}
-.card{background:#2a2a34;border-radius:18px;overflow:hidden;border:1px solid #3a3a46;box-shadow:0 4px 20px rgba(0,0,0,.3)}
+.card{background:#2a2a36;border-radius:18px;overflow:hidden;border:1px solid #3a3a4a}
 .chead{display:flex;align-items:center;gap:10px;padding:11px 12px}
 .chead img{width:36px;height:36px;border-radius:50%;border:1.6px solid #e6c78a}
-.name{font-size:13px;font-weight:700}.meta{font-size:11px;color:#e6c78a}
-.cmedia{position:relative;background:#000;display:flex}
-.main-img{width:82%;height:240px;object-fit:cover}
-.side{width:18%;background:#2a2a34;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;color:#e6c78a;font-size:11px}
+.cmedia{position:relative;display:flex;background:#000}
+.main-img{width:82%;height:260px;object-fit:cover}
+.side{width:18%;background:#2a2a36;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:12px 0}
+.act{cursor:pointer;text-align:center;user-select:none;transition:.15s}
+.act:active{transform:scale(1.3)}
+.act svg{width:22px;height:22px;stroke:#e6c78a;fill:none;stroke-width:1.6;display:block;margin:0 auto 4px}
+.act.liked svg{fill:#e6c78a;stroke:#e6c78a}
+.act b{font-size:11px;color:#e6c78a;font-weight:700}
 .badge{position:absolute;left:10px;bottom:10px;background:#e6c78a;color:#000;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:800}
-.play{position:absolute;left:41%;top:50%;transform:translate(-50%,-50%);width:42px;height:42px;border-radius:50%;background:rgba(0,0,0,.5);border:2px solid #fff;display:flex;align-items:center;justify-content:center}
+.play{position:absolute;left:41%;top:50%;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;background:rgba(0,0,0,.5);border:2px solid #fff;display:flex;align-items:center;justify-content:center;cursor:pointer}
 .cap{padding:10px 12px;font-size:12.5px;color:#ddd}
-.cfoot{padding:0 12px 11px;display:flex;gap:14px;color:#e6c78a;font-size:11.5px}
 .page{display:none}.page.active{display:block}
-.nav{position:fixed;bottom:0;left:0;right:0;background:#1c1c24;border-top:1px solid #3a3a46;display:flex;justify-content:space-around;padding:10px 0 22px}
-.nav button{background:none;border:none;color:#777;font-size:10px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:4px}
+.nav{position:fixed;bottom:0;left:0;right:0;background:#1e1e28;border-top:1px solid #3a3a4a;display:flex;justify-content:space-around;padding:10px 0 22px;z-index:10}
+.nav button{background:none;border:none;color:#666;font-size:10px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:4px}
 .nav button.active{color:#e6c78a}
-.nav span{font-size:20px}
+#storyModal{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;z-index:99}
+#storyModal img{width:90%;max-width:380px;border-radius:20px;border:2px solid #e6c78a}
+#chatBox{padding:14px;display:flex;flex-direction:column;gap:10px}
+.msg{background:#2a2a36;padding:10px 14px;border-radius:14px;border:1px solid #3a3a4a;font-size:13px;max-width:80%}
+.msg.me{align-self:flex-end;background:#e6c78a;color:#000}
 </style>
 </head>
 <body>
 <div class="top">FAME</div>
-<div class="tabs"><button class="active">• Live</button><button>Chat</button><button>Fame Wall</button></div>
+<div class="tabs">
+<button id="tLive" class="active" onclick="switchTab('live',this)">• Live</button>
+<button id="tChat" onclick="switchTab('chat',this)">Chat</button>
+<button id="tWall" onclick="switchTab('wall',this)">Fame Wall</button>
+</div>
+
+<div id="pLive">
 <div class="label">Stories</div>
 <div class="stories">
-<div class="s"><div class="you-wrap"><div class="you">+</div></div>Your Story</div>
-<div class="s"><div class="ring"><img src="https://i.pravatar.cc/150?img=5"></div>amelia._</div>
-<div class="s"><div class="ring"><img src="https://i.pravatar.cc/150?img=12"></div>jordan.k</div>
-<div class="s"><div class="ring"><img src="https://i.pravatar.cc/150?img=32"></div>luxe_d</div>
-<div class="s"><div class="ring"><img src="https://i.pravatar.cc/150?img=15"></div>marc._</div>
+<div class="s" onclick="openStory('Your Story','https://i.pravatar.cc/300?img=1')"><div class="you-wrap"><div class="you">+</div></div>Your Story</div>
+<div class="s" onclick="openStory('amelia._','https://i.pravatar.cc/300?img=5')"><div class="ring"><img src="https://i.pravatar.cc/150?img=5"></div>amelia._</div>
+<div class="s" onclick="openStory('jordan.k','https://i.pravatar.cc/300?img=12')"><div class="ring"><img src="https://i.pravatar.cc/150?img=12"></div>jordan.k</div>
+<div class="s" onclick="openStory('luxe_d','https://i.pravatar.cc/300?img=32')"><div class="ring"><img src="https://i.pravatar.cc/150?img=32"></div>luxe_d</div>
+<div class="s" onclick="openStory('marc._','https://i.pravatar.cc/300?img=15')"><div class="ring"><img src="https://i.pravatar.cc/150?img=15"></div>marc._</div>
 </div>
+
 <div id="feed" class="page active"><div class="feed">
-<div class="card"><div class="chead"><img src="https://i.pravatar.cc/150?img=5"><div><div class="name">noir.moda ✓</div><div class="meta">London • 12m ago</div></div></div><div class="cmedia"><img class="main-img" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=700"><div class="play">▶</div><div class="badge">0:23</div><div class="side"><div>♥<br>12.4K</div><div>💬<br>842</div><div>↗<br>321</div></div></div><div class="cap">London nights ✨ fit check #fame #night #style</div></div>
-<div class="card"><div class="chead"><img src="https://i.pravatar.cc/150?img=33"><div><div class="name">citylens_london</div><div class="meta">34m ago • Photos</div></div></div><img src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?w=700" style="width:100%;height:220px;object-fit:cover"><div class="cfoot"><span>♡ 8.7K</span><span>○ 291</span><span>↗ 104</span></div><div class="cap">Late night views from Southbank 🌙✨ golden hour turned midnight. #london #citylens #fameapp</div></div>
+<div class="card">
+<div class="chead"><img src="https://i.pravatar.cc/150?img=5"><div><div style="font-size:13px;font-weight:700">noir.moda ✓</div><div style="font-size:11px;color:#e6c78a">London • 12m ago</div></div></div>
+<div class="cmedia"><img class="main-img" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=700"><div class="play" onclick="alert('Playing 0:23 video 🎥')">▶</div><div class="badge">0:23</div>
+<div class="side">
+<div class="act" onclick="like(this)"><svg viewBox="0 0 24 24"><path d="M12 21s-6.5-4.5-9-8.5S5 4 12 8s9 3.5 6.5 8.5S12 21 12 21z"/></svg><b>12.4K</b></div>
+<div class="act" onclick="commentPost('noir.moda')"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-12.5 7.5L3 21l2-5.5A8.5 8.5 0 0 1 21 11.5z"/><circle cx="9" cy="11.5" r="1"/><circle cx="12" cy="11.5" r="1"/><circle cx="15" cy="11.5" r="1"/></svg><b>842</b></div>
+<div class="act" onclick="sharePost()"><svg viewBox="0 0 24 24"><path d="M12 2v14M5 9l7-7 7 7"/><path d="M3 18v2h18v-2"/></svg><b>321</b></div>
 </div></div>
-<div id="explorer" class="page"><p style="text-align:center;padding:80px;color:#888">Explorer NW10 🔥</p></div>
-<div id="inbox" class="page"><p style="text-align:center;padding:80px;color:#888">Inbox</p></div>
-<div id="profile" class="page"><div style="text-align:center;padding:60px"><div style="width:90px;height:90px;border-radius:50%;background:#e6c78a;margin:0 auto 12px"></div><p style="color:#e6c78a">@london_boy</p></div></div>
-<div class="nav">
-<button class="active" onclick="go('feed',this)"><span>⌂</span>Feed</button>
-<button onclick="go('explorer',this)"><span>◎</span>Explorer</button>
-<button onclick="alert('Create soon')"><span style="width:28px;height:28px;border:1.6px solid #e6c78a;border-radius:50%;display:flex;align-items:center;justify-content:center">+</span>Create</button>
-<button onclick="go('inbox',this)"><span>✉</span>Inbox</button>
-<button onclick="go('profile',this)"><span>○</span>Profile</button>
+<div class="cap">London nights ✨ fit check #fame #night #style</div>
 </div>
-<script>function go(id,b){document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));b.classList.add('active')}</script>
+
+<div class="card">
+<div class="chead"><img src="https://i.pravatar.cc/150?img=33"><div><div style="font-size:13px;font-weight:700">citylens_london</div><div style="font-size:11px;color:#e6c78a">34m ago • Photos</div></div></div>
+<img src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?w=700" style="width:100%;height:220px;object-fit:cover">
+<div style="padding:10px 12px;display:flex;gap:18px">
+<div class="act" onclick="like(this)"><svg viewBox="0 0 24 24"><path d="M12 21s-6.5-4.5-9-8.5S5 4 12 8s9 3.5 6.5 8.5S12 21 12 21z"/></svg><b>8.7K</b></div>
+<div class="act" onclick="commentPost('citylens')"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-12.5 7.5L3 21l2-5.5A8.5 8.5 0 0 1 21 11.5z"/></svg><b>291</b></div>
+<div class="act" onclick="sharePost()"><svg viewBox="0 0 24 24"><path d="M12 2v14M5 9l7-7 7 7"/><path d="M3 18v2h18v-2"/></svg><b>104</b></div>
+</div>
+<div class="cap">Late night views from Southbank 🌙✨ golden hour turned midnight. #london #citylens #fameapp</div>
+</div>
+</div></div>
+</div>
+
+<div id="pChat" style="display:none"><div id="chatBox"><div class="msg">Yo bro FAME is fire 🔥 — amelia._</div><div class="msg me">Thanks! Just dropped London nights</div><div style="display:flex;gap:8px;padding:12px"><input id="chatIn" placeholder="Message..." style="flex:1;padding:12px;border-radius:12px;border:1px solid #3a3a4a;background:#2a2a36;color:#fff"><button onclick="sendChat()" style="padding:12px 16px;border-radius:12px;background:#e6c78a;border:none;font-weight:800">Send</button></div></div></div>
+
+<div id="pWall" style="display:none"><p style="text-align:center;padding:80px;color:#888">🏆 Fame Wall<br><span style="font-size:13px">Top 10 trending in London tonight</span><br><br>1. noir.moda — 12.4K<br>2. citylens_london — 8.7K</p></div>
+
+<div id="explorer" class="page"><p style="text-align:center;padding:80px;color:#888">◎ Explorer NW10 🔥<br>Discover talents near you</p></div>
+<div id="inbox" class="page"><p style="text-align:center;padding:80px;color:#888">✉ Inbox — 1 new</p></div>
+<div id="profile" class="page"><div style="text-align:center;padding:60px"><div style="width:90px;height:90px;border-radius:50%;background:#e6c78a;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;color:#000;font-size:32px;font-weight:800">M</div><p style="color:#e6c78a">@london_boy</p></div></div>
+
+<div class="nav">
+<button class="active" onclick="goPage('feed',this)"><span style="font-size:20px">⌂</span>Feed</button>
+<button onclick="goPage('explorer',this)"><span style="font-size:20px">◎</span>Explorer</button>
+<button onclick="alert('Create coming next — video upload!')"><span style="width:28px;height:28px;border:1.6px solid #e6c78a;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px">+</span>Create</button>
+<button onclick="goPage('inbox',this)"><span style="font-size:20px">✉</span>Inbox</button>
+<button onclick="goPage('profile',this)"><span style="font-size:20px">○</span>Profile</button>
+</div>
+
+<div id="storyModal" onclick="this.style.display='none'"><img id="storyImg"></div>
+
+<script>
+function switchTab(t,btn){
+document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
+btn.classList.add('active');
+document.getElementById('pLive').style.display=t==='live'?'block':'none';
+document.getElementById('pChat').style.display=t==='chat'?'block':'none';
+document.getElementById('pWall').style.display=t==='wall'?'block':'none';
+}
+function goPage(id,b){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));
+b.classList.add('active');
+}
+function like(el){
+el.classList.toggle('liked');
+let numEl=el.querySelector('b');
+let txt=numEl.innerText.replace('K','');
+let num=parseFloat(txt);
+if(el.classList.contains('liked')){
+if(txt.includes('K')) num+=0.1; else num+=1;
+navigator.vibrate&&navigator.vibrate(20);
+}else{
+if(txt.includes('K')) num-=0.1; else num-=1;
+}
+numEl.innerText = num.toFixed(1)+'K';
+}
+function commentPost(user){
+let c=prompt('Comment on '+user+':');
+if(c) alert('Posted: "'+c+'" — will save to Supabase next!');
+}
+function sharePost(){
+if(navigator.share){navigator.share({title:'FAME',url:location.href})}
+else{navigator.clipboard.writeText(location.href);alert('Link copied! 🔗');}
+}
+function openStory(name,img){
+document.getElementById('storyImg').src=img;
+document.getElementById('storyModal').style.display='flex';
+setTimeout(()=>{document.getElementById('storyModal').style.display='none'},3000);
+}
+function sendChat(){
+let i=document.getElementById('chatIn');if(!i.value) return;
+let box=document.getElementById('chatBox');
+let m=document.createElement('div');m.className='msg me';m.innerText=i.value;box.insertBefore(m,box.lastElementChild);i.value='';
+}
+</script>
 </body>
 </html>
