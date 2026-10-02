@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>FAME - Go LIVE</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#000000">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { background:#000; color:#D4AF37; font-family:Arial; display:flex; flex-direction:column; align-items:center; justify-content:center; height:100vh; margin:0; }
+    h1 { font-size:48px; letter-spacing:5px; }
+    p { color:white; }
+  </style>
+</head>
+<body>
+  <h1>FAME</h1>
+  <p>Go LIVE, Grow Your Fame</p>
+  <p>Loading FAME app...</p>
+  <script>
+    // Redirect to Expo web if exists, or just stay
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(()=>{});
+    }
+  </script>
+</body>
+</html>
