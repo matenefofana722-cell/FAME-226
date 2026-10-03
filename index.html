@@ -170,8 +170,8 @@ async function createPost(){
   if(error){alert(error.message);return}
   const {data}=supa.storage.from('videos').getPublicUrl(fileName);
   const url=data.publicUrl;
-  const id='post-'+Date.now();
-  await supa.from('posts').insert([{id:id,url:url,caption:c}]);
+  const { error: dbErr } = await supa.from('posts').insert([{url:url,caption:c}]);
+if(dbErr){ alert('DB Error: '+dbErr.message); return; }
   location.reload();
 }
 function toggleDel(id){
