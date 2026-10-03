@@ -73,7 +73,7 @@ async function loadFeed(){
       let isV=p.video_url.includes('.mp4');
       list.innerHTML+=`<div class="card"><div class="chead"><img src="https://i.pravatar.cc/150?img=5"><div><div style="font-size:13px;font-weight:700">${p.username||'citylens_london'}</div><div style="font-size:11px;color:#888">34m ago</div></div></div><div class="cmedia">${isV?`<video src="${p.video_url}" controls style="width:100%;height:520px;object-fit:cover"></video>`:`<img class="main-img" src="${p.video_url}">`}</div><div style="display:flex;gap:6px;padding:4px 6px"><div class="act" onclick="like(this)"><svg viewBox="0 0 24 24"><path d="M12 21s-6.5-4.35-8.5-7.5A4.5 4.5 0 0 1 12 8a4.5 4.5 0 0 1 8.5 5.5C18.5 16.65 12 21 12 21z"></path></svg><b>${p.likes||'8.7K'}</b></div><div class="act"><b>💬 291</b></div></div><div class="cap">${p.caption||'London nights ✨'}</div></div>`;
     });
-    document.getElementById('exploreGrid').innerHTML=list.innerHTML;
+    document.getElementById('exploreGrid').innerHTML=list.innerHTML;let pg=document.getElementById('profileGrid'); if(pg) pg.innerHTML=list.innerHTML;
   }catch(e){
     list.innerHTML=`<div class="card"><div class="chead"><img src="https://i.pravatar.cc/150?img=5"><div><div style="font-size:13px;font-weight:700">citylens_london</div><div style="font-size:11px;color:#888">34m ago • Add REAL Supabase keys to see real posts</div></div></div><img class="main-img" src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=700"><div class="cap">London nights ✨ fit check #fame #night #style — Replace YOUR_PROJECT_ID with real keys!</div></div>`;
   }
