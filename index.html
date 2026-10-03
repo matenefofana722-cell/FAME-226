@@ -161,41 +161,45 @@ function openCreateModal(){
 function closeCreateModal(){
  document.getElementById('createModal').style.display='none'
 }
-function createPost(){
+async function createPost(){
   const f=document.getElementById('postFile').files[0];
   const c=document.getElementById('postCaption').value;
   if(!f){alert('Pick file!');return}
-  const u=URL.createObjectURL(f);
-  const v=f.type.startsWith('video');
-  const feed=document.getElementById('feed');
-  const d=document.createElement('div');
+  const fileName=Date.now()+'-'+f.name.replace(/ /g,'_');
+  const {error} = await supa.storage.from('videos').upload(fileName,f);
+  if(error){alert(error.message);return}
+  const {data}=supa.storage.from('videos').getPublicUrl(fileName);
+  const url=data.publicUrl;
   const id='post-'+Date.now();
-  d.className='post';
-  d.id=id;
-  d.style.cssText='border:1px solid #333;margin:12px 0;border-radius:16px;overflow:hidden;background:#111;position:relative;';
-  d.innerHTML=(v?`<video src="${u}" loop autoplay muted playsinline controls style="width:100%"></video>`:`<img src="${u}" style="width:100%">`)+`
-    <div style="padding:10px;display:flex;justify-content:space-between;align-items:center;">
-      <p style="color:white;margin:0;flex:1;">${c}</p>
-      <button onclick="toggleDel('${id}')" style="background:rgba(255,255,255,0.1);border:none;color:white;width:32px;height:32px;border-radius:50%;font-size:18px;">⋯</button>
-    </div>
-    <div id="del-${id}" style="display:none;position:absolute;top:10px;right:50px;background:#222;padding:8px;border-radius:10px;z-index:10;">
-      <button onclick="removePost('${id}')" style="background:#ff2a2a;color:white;border:none;padding:8px 16px;border-radius:8px;width:100%;font-weight:bold;">🗑️ Delete</button>
-      <button onclick="toggleDel('${id}')" style="background:#333;color:white;border:none;padding:6px 16px;border-radius:8px;width:100%;margin-top:6px;">Cancel</button>
-    </div>
-  `;
-  feed.prepend(d);
-  closeCreateModal();
+  await supa.from('posts').insert([{id:id,url:url,caption:c}]);
+  location.reload();
 }
 function toggleDel(id){
   const m=document.getElementById('del-'+id);
   m.style.display=m.style.display==='none'?'block':'none';
 }
-function removePost(id){
-  if(confirm('Delete this post?')){
-    document.getElementById(id).remove();
+async function removePost(id){
+  if(confirm('Delete?')){
+    document.getElementById(id)?.remove();
+    await supa.from('posts').delete().eq('id',id);
   }
 }
-
+async function loadForever(){
+  const {data}=await supa.from('posts').select('*').order('created_at',{ascending:false});
+  if(!data) return;
+  const feed=document.getElementById('feed');
+  data.forEach(p=>{
+    if(document.getElementById(p.id)) return;
+    const d=document.createElement('div');
+    d.id=p.id; d.className='post';
+    d.style.cssText='border:1px solid #333;margin:12px 0;border-radius:16px;overflow:hidden;position:relative;background:#2a2a36';
+    const isV=p.url.includes('.mp4')||p.url.includes('.mov')||p.url.includes('.webm');
+    d.innerHTML=(isV?`<video src="${p.url}" loop autoplay muted playsinline controls style="width:100%;height:260px;object-fit:cover"></video>`:`<img src="${p.url}" style="width:100%;height:260px;object-fit:cover">`)+`<div style="padding:10px;display:flex;justify-content:space-between"><p style="color:white;margin:0">${p.caption||''}</p><button onclick="toggleDel('${p.id}')" style="background:#444;color:white;border:0;padding:4px 8px;border-radius:5px">...</button></div><div id="del-${p.id}" style="display:none;position:absolute;top:10px;right:10px"><button onclick="removePost('${p.id}')" style="background:red;color:white;border:0;padding:5px 10px;border-radius:5px">Delete</button></div>`;
+    feed.prepend(d);
+  });
+}
+loadForever();
+ 
 </script>
 </body>
 </html>
