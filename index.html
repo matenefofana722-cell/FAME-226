@@ -298,4 +298,52 @@ function closeCreateModal(){
 window.addEventListener('load', ()=>{
   switchTab('feed', document.querySelector('.tabs button'));
 });</script></body></html>
- 
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FAME V2</title><link rel="icon" href="icon-512.png"><link rel="manifest" href="manifest.json">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<style>*{box-sizing:border-box;margin:0}body{background:#000;color:#fff;font-family:Arial;padding-bottom:70px}
+.top{position:sticky;top:0;background:#000;border-bottom:1px solid #222;padding:12px 16px;display:flex;justify-content:space-between;z-index:10}
+.logo{color:#FFD700;font-weight:900;letter-spacing:3px;font-size:20px}
+.tab{display:none;max-width:500px;margin:0 auto;padding:10px}.tab.active{display:block}
+.post{background:#111;border:1px solid #222;border-radius:16px;margin:12px 0;overflow:hidden}
+.post img,.post video{width:100%;display:block;max-height:550px;object-fit:cover}
+.h{padding:10px;display:flex;gap:8px;align-items:center}.av{width:32px;height:32px;border-radius:50%;background:#FFD700;color:#000;display:grid;place-items:center;font-weight:900}
+.c{padding:10px 12px;font-size:14px}.ac{display:flex;gap:14px;padding:8px 12px;font-size:22px}
+.tabs{position:fixed;bottom:0;left:0;right:0;background:#0a0a0a;border-top:1px solid #222;display:flex;justify-content:space-around;padding:8px 0 14px;z-index:100}
+.tabs button{background:none;border:none;color:#555;font-size:20px}.tabs button.active{color:#FFD700}
+#md{position:fixed;inset:0;background:rgba(0,0,0,.94);display:none;place-items:center;z-index:999;padding:20px}
+.bx{background:#151515;border:1px solid #222;border-radius:20px;padding:18px;width:100%;max-width:400px}
+.pb{width:100%;background:#FFD700;color:#000;border:none;padding:14px;border-radius:12px;font-weight:900;margin-top:10px}
+.g{display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px}.g div{aspect-ratio:1;background:#111;overflow:hidden}.g img,.g video{width:100%;height:100%;object-fit:cover}
+input,textarea{width:100%;background:#222;color:#fff;border:none;padding:12px;border-radius:12px;margin-top:10px}
+</style></head><body>
+<div class="top"><div class="logo">FAME V2 ✨</div><div style="color:#666;font-size:11px">LONDON LIVE</div></div>
+
+<div id="feed" class="tab active"></div>
+<div id="explore" class="tab"><h3 style="padding:12px">🔍 Explore</h3><div id="eg" class="g"></div></div>
+<div id="inbox" class="tab"><h3 style="padding:12px">💬 Inbox</h3><div style="padding:16px;border-bottom:1px solid #111"><b>fame_official</b><br><span style="color:#666;font-size:13px">Your V2 is live 🚀 Tap Explore!</span></div><div style="padding:16px;border-bottom:1px solid #111"><b>citylens_london</b><br><span style="color:#666;font-size:13px">Bro your feed is fire 🔥</span></div></div>
+<div id="profile" class="tab" style="text-align:center"><div style="width:80px;height:80px;border-radius:50%;background:linear-gradient(45deg,#FFD700,#ff8c00);margin:20px auto;display:grid;place-items:center;font-size:32px;font-weight:900;color:#000">M</div><h2>Matene F.</h2><p id="uid" style="color:#666;font-size:12px"></p><p style="color:#888;font-size:13px;margin-top:6px">19 • NW10 • Creator • 8.7K followers</p><div id="pg" class="g" style="margin-top:20px;text-align:left"></div></div>
+
+<div class="tabs">
+<button id="b-feed" class="active" onclick="go('feed')">🏠<br><span style="font-size:9px">Feed</span></button>
+<button id="b-explore" onclick="go('explore')">🔍<br><span style="font-size:9px">Explore</span></button>
+<button onclick="md.style.display='grid'">➕<br><span style="font-size:9px">Create</span></button>
+<button id="b-inbox" onclick="go('inbox')">💬<br><span style="font-size:9px">Inbox</span></button>
+<button id="b-profile" onclick="go('profile')">👤<br><span style="font-size:9px">Profile</span></button>
+</div>
+
+<div id="md"><div class="bx"><h3>New Drop ✨</h3><input type="file" id="f" accept="image/*,video/*"><textarea id="cap" placeholder="London nights #fame"></textarea><button class="pb" onclick="post()">POST TO FAME 🚀</button><button style="width:100%;background:none;border:none;color:#555;padding:10px;margin-top:6px" onclick="md.style.display='none'">Cancel</button><p id="st" style="color:#FFD700;text-align:center;margin-top:8px;font-size:13px"></p></div></div>
+
+<script>
+const SUPA_URL='https://YOUR_PROJECT_ID.supabase.co'; // REPLACE
+const SUPA_KEY='sb_publishable_YOUR_KEY'; // REPLACE
+const supa=supabase.createClient(SUPA_URL,SUPA_KEY);
+uid.innerText='fame_'+Math.random().toString(36).slice(2,7);
+
+function go(n){document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));document.getElementById(n).classList.add('active');document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));let b=document.getElementById('b-'+n);if(b)b.classList.add('active');if(n=='explore')ex();if(n=='profile')pr();if(n=='feed')ld();window.scrollTo(0,0)}
+async function post(){let file=f.files[0],c=cap.value,st=document.getElementById('st');if(!file){st.innerText='Pick file!';return}if(SUPA_URL.includes('YOUR_')){alert('Put real Supabase keys!');return}st.innerText='Uploading...';try{let name=Date.now()+'_'+file.name.replace(/\s/g,'_');let {error:up}=await supa.storage.from('videos').upload(name,file);if(up)throw up;let {data}=supa.storage.from('videos').getPublicUrl(name);let {error:db}=await supa.from('posts').insert([{video_url:data.publicUrl,caption:c,username:'citylens_london'}]);if(db)throw db;st.innerText='Posted! 🔥';setTimeout(()=>{md.style.display='none';go('feed');ld()},800)}catch(e){st.innerText=e.message}}
+async function ld(){let box=document.getElementById('feed');box.innerHTML='<p style="text-align:center;padding:30px;color:#666">Loading FAME...</p>';try{let {data,error}=await supa.from('posts').select('*').order('created_at',{ascending:false}).limit(50);if(error)throw error;if(!data.length){box.innerHTML='<p style="text-align:center;padding:40px;color:#666">No posts. Tap ➕ to be first!</p>';return}box.innerHTML='';data.forEach(p=>{let v=p.video_url.includes('.mp4');box.innerHTML+=`<div class="post"><div class="h"><div class="av">${(p.username||'F')[0].toUpperCase()}</div><b>${p.username||'citylens'}</b><span style="color:#666;font-size:11px">• 34m</span></div>${v?`<video src="${p.video_url}" controls playsinline></video>`:`<img src="${p.video_url}">`}<div class="ac"><span onclick="this.innerText=this.innerText=='❤️'?'💛':'❤️'">❤️</span><span>💬</span><span>↗️</span></div><div class="c"><b>${p.username}</b> ${p.caption||''}</div></div>`})}catch(e){box.innerHTML='Error: '+e.message+'<br><span style="color:#666;font-size:12px">Create posts table + public bucket videos</span>'}}
+async function ex(){let g=document.getElementById('eg');let {data}=await supa.from('posts').select('*').limit(21);g.innerHTML='';data?.forEach(p=>{let v=p.video_url.includes('.mp4');g.innerHTML+=`<div onclick="go('feed')">${v?`<video src="${p.video_url}" muted></video>`:`<img src="${p.video_url}">`}</div>`})}
+async function pr(){let g=document.getElementById('pg');let {data}=await supa.from('posts').select('*').limit(21);g.innerHTML='';data?.forEach(p=>{let v=p.video_url.includes('.mp4');g.innerHTML+=`<div>${v?`<video src="${p.video_url}" muted></video>`:`<img src="${p.video_url}">`}</div>`})}
+ld();
+</script></body></html> 
