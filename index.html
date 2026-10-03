@@ -170,7 +170,7 @@ async function createPost(){
   if(error){alert(error.message);return}
   const {data}=supa.storage.from('videos').getPublicUrl(fileName);
   const url=data.publicUrl;
-  const { error: dbErr } = await supa.from('posts').insert([{url:url,caption:c}]);
+const { error: dbErr } = await supa.from('posts').insert([{url:url}]);  
 if(dbErr){ alert('DB Error: '+dbErr.message); return; }
   location.reload();
 }
