@@ -49,10 +49,11 @@ body{background:#1e1e28;color:#fff;font-family:-apple-system,sans-serif;padding-
 </head>
 <body>
 <div class="top">FAME</div>
-<div class="tabs">
-<button id="tLive" class="active" onclick="switchTab('live',this)">• Live</button>
-<button id="tChat" onclick="switchTab('chat',this)">Chat</button>
-<button id="tWall" onclick="switchTab('wall',this)">Fame Wall</button>
+<div class="tabs" style="position:sticky;top:0;z-index:10;background:#0a0a14;display:flex;justify-content:center;gap:18px;padding:10px;border-bottom:1px solid #222">
+<button id="tLive" class="active" onclick="switchTab('live',this)" style="border:1px solid #c9a86a;color:#c9a86a;padding:2px 7px;border-radius:4px;font-size:10px">LIVE</button>
+<button onclick="switchTab('nearby',this)" style="color:#666;background:none;border:none">Nearby</button>
+<button onclick="switchTab('following',this)" style="color:#666;background:none;border:none">Following</button>
+<button id="tWall" onclick="switchTab('wall',this)" style="color:#fff;font-weight:800;border-bottom:2px solid #fff;background:none;border-left:none;border-right:none;border-top:none;padding-bottom:3px">For You</button>
 </div>
 
 <div id="pLive">
