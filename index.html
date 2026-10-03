@@ -194,14 +194,14 @@ async function loadForever(){
   const feed=document.getElementById('feed');
   if(!feed) return;
   feed.innerHTML='';
-  data.forEach(p=>{
+    data.forEach(p=>{
     if(document.getElementById(p.id)) return;
     const d=document.createElement('div');
     d.id=p.id; d.className='post';
-    d.style.cssText='border:1px solid #333;margin:12px 0;border-radius:16px;overflow:hidden;background:#222';
+    d.style.cssText='border:1px solid #333;margin:12px 0;border-radius:16px;overflow:hidden;background:#111;position:relative';
     const isV=p.url.includes('.mp4')||p.url.includes('.mov')||p.url.includes('.webm');
-    d.innerHTML = `<div style="position:relative"><div>${isV ? `<video src="${p.url}" loop autoplay muted playsinline style="width:100%;height:520px;object-fit:cover"></video>` : `<img src="${p.url}" style="width:100%;height:520px;object-fit:cover">`}</div><div style="position:absolute;right:12px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:24px;z-index:999"><div style="text-align:center"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#c9a86a" stroke-width="1.8"><path d="M12 21s-6.5-4.3-9-8.1C1 10 2.5 6.5 6 6.5c2 0 3.5 1 4 2.5C11 7.5 12.5 6.5 14.5 6.5c3.5 0 5 3.5 3 6.4C15 16.7 12 21 12 21z"/></svg><div style="color:#c9a86a;font-weight:800;font-size:13px">12.4K</div></div><div style="text-align:center"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#c9a86a" stroke-width="1.8"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5H12l-4 3 1-3.5A8.5 8.5 0 0 1 21 11.5z"/></svg><div style="color:#c9a86a;font-weight:800;font-size:13px">842</div></div><div style="text-align:center"><div style="color:#c9a86a;font-size:22px">↗</div><div style="color:#c9a86a;font-weight:800;font-size:13px">321</div></div></div></div>`;
-feed.prepend(d);
+    d.innerHTML='<div style="position:relative">'+(isV?'<video src="'+p.url+'" loop autoplay muted playsinline onclick="this.paused?this.play():this.pause()" style="width:100%;height:520px;object-fit:cover;display:block"></video>':'<img src="'+p.url+'" style="width:100%;height:520px;object-fit:cover;display:block">')+'<div style="position:absolute;right:12px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:26px;z-index:99;text-align:center"><div onclick="likePost(this,\''+p.id+'\')" style="cursor:pointer"><div class="hIcon" style="color:#c9a86a;font-size:28px;transition:.2s">♡</div><div style="color:#c9a86a;font-weight:800;font-size:13px;margin-top:2px" class="likeCount">'+(p.likes||'12.4K')+'</div></div><div onclick="openComments(\''+p.id+'\')" style="cursor:pointer"><div style="color:#c9a86a;font-size:24px">💬</div><div style="color:#c9a86a;font-weight:800;font-size:13px">842</div></div><div onclick="sharePost(\''+p.url+'\')" style="cursor:pointer"><div style="color:#c9a86a;font-size:24px">↗</div><div style="color:#c9a86a;font-weight:800;font-size:13px">321</div></div></div></div><div id="comments-'+p.id+'" style="display:none;padding:10px;background:#111;border-top:1px solid #333"><input id="input-'+p.id+'" placeholder="Add a comment..." style="width:68%;padding:9px 12px;border-radius:20px;border:1px solid #333;background:#222;color:#fff"><button onclick="addComment(\''+p.id+'\')" style="padding:9px 16px;margin-left:6px;border-radius:20px;background:#c9a86a;color:#000;border:none;font-weight:800">Send</button><div id="list-'+p.id+'" style="margin-top:10px;color:#ddd;font-size:13px"></div></div>';
+    feed.prepend(d);
   });
 }
 
@@ -230,7 +230,30 @@ async function loadMyProfile(){
 
 loadForever();
  
-</script>
+function likePost(el,id){
+ const i=el.querySelector('.hIcon');
+ i.textContent=i.textContent==='♡'?'♥':'♡';
+ i.style.color=i.textContent==='♥'?'#FFD700':'#c9a86a';
+ i.style.transform='scale(1.3)';
+ setTimeout(()=>i.style.transform='scale(1)',150);
+}
+function openComments(id){
+ const b=document.getElementById('comments-'+id);
+ b.style.display=b.style.display==='none'?'block':'none';
+}
+function addComment(id){
+ const inp=document.getElementById('input-'+id);
+ const list=document.getElementById('list-'+id);
+ if(!inp.value.trim())return;
+ const d=document.createElement('div');
+ d.textContent='You: '+inp.value; d.style.padding='5px 0';
+ list.prepend(d); inp.value='';
+}
+async function sharePost(url){
+ if(navigator.share){try{await navigator.share({title:'FAME',url:url});return}catch(e){}}
+ await navigator.clipboard.writeText(url);
+ alert('Link copied!');
+  }</script>
 <style>
 .cmedia{position:relative!important;display:block!important}
 .main-img, .cmedia img, .cmedia video{width:100%!important;height:520px!important;object-fit:cover!important;display:block!important}
