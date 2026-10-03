@@ -86,8 +86,7 @@ async function createPost(){
   let postBtn = document.querySelector('#createModal button');
   let f = fileEl?.files[0];
   if(!f){ statusEl.innerText='Pick file!'; return; }
-  if(!supa){ alert('Put REAL Supabase keys first!'); return; }
-
+ if(!supa){ alert('supa is NULL - library didnt load. Error: '+ (typeof supabase)); console.log('supabase global:', typeof supabase); return; } 
   isPosting = true;
   if(postBtn){ postBtn.disabled=true; postBtn.innerText='Posting...'; postBtn.style.opacity='0.5'; }
   statusEl.innerText='Uploading...';
