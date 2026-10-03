@@ -230,35 +230,52 @@ async function loadMyProfile(){
 
 loadForever();
  
-function likePost(el,id){
- const i=el.querySelector('.hIcon');
- i.textContent=i.textContent==='♡'?'♥':'♡';
- i.style.color=i.textContent==='♥'?'#FFD700':'#c9a86a';
- i.style.transform='scale(1.3)';
- setTimeout(()=>i.style.transform='scale(1)',150);
+<div id="postView" style="display:none;position:fixed;inset:0;background:#000;z-index:9999;overflow:auto">
+<div style="padding:12px;color:#c9a86a;display:flex;justify-content:space-between"><span onclick="closePost()" style="font-size:26px;cursor:pointer">✕</span><b>Post</b><span></span></div>
+<div id="postViewMedia"></div>
+<div style="display:flex;gap:28px;padding:14px;border-bottom:1px solid #222">
+<div onclick="likePost(this)" style="color:#c9a86a;cursor:pointer"><span class="hIcon" style="font-size:26px">♡</span> <b id="likeNum" style="font-size:14px">12.4K</b></div>
+<div onclick="openC()" style="color:#c9a86a;cursor:pointer;font-size:22px">💬 <b style="font-size:14px">842</b></div>
+<div onclick="sharePost()" style="color:#c9a86a;cursor:pointer;font-size:22px">↗ <b style="font-size:14px">321</b></div>
+</div>
+<div id="detailComments" style="display:none;padding:12px"><input id="commentInput" placeholder="Comment..." style="width:65%;padding:10px;border-radius:20px;background:#222;border:1px solid #333;color:#fff"><button onclick="addComment()" style="padding:10px;background:#c9a86a;border:none;border-radius:20px;font-weight:800;margin-left:6px">Send</button><div id="commentList" style="margin-top:10px;color:#ddd"></div></div>
+</div>
+
+<script>
+let currentUrl=''; let currentPostId='';
+function openPost(id,url,isV){
+ currentPostId=id; currentUrl=url;
+ let m=isV?'<video src="'+url+'" autoplay loop controls style="width:100%;height:70vh;object-fit:cover"></video>':'<img src="'+url+'" style="width:100%;height:70vh;object-fit:cover">';
+ document.getElementById('postViewMedia').innerHTML=m;
+ document.getElementById('postView').style.display='block';
+ loadLikes(id);
 }
-function openComments(id){
- const b=document.getElementById('comments-'+id);
- b.style.display=b.style.display==='none'?'block':'none';
+function closePost(){document.getElementById('postView').style.display='none';}
+async function loadLikes(postId){
+ try{let {data}=await supa.from('posts').select('likes').eq('id',postId).single(); if(data&&data.likes){document.getElementById('likeNum').textContent=data.likes.toLocaleString();}}catch(e){}
 }
-function addComment(id){
- const inp=document.getElementById('input-'+id);
- const list=document.getElementById('list-'+id);
- if(!inp.value.trim())return;
- const d=document.createElement('div');
- d.textContent='You: '+inp.value; d.style.padding='5px 0';
- list.prepend(d); inp.value='';
+async function likePost(el){
+ let i=el.querySelector('.hIcon'); let num=document.getElementById('likeNum');
+ let liked=i.textContent==='♥';
+ let dev=localStorage.getItem('fame_dev')||(()=>{let id='d_'+Math.random().toString(36).slice(2); localStorage.setItem('fame_dev',id); return id;})();
+ if(!liked){
+  i.textContent='♥'; i.style.color='#FFD700'; i.style.transform='scale(1.3)'; setTimeout(()=>i.style.transform='scale(1)',150);
+  let {data:already}=await supa.from('post_likes').select('id').eq('post_id',currentPostId).eq('user_id',dev).maybeSingle();
+  if(already) return;
+  await supa.from('post_likes').insert({post_id:currentPostId,user_id:dev});
+  let {data:p}=await supa.from('posts').select('likes').eq('id',currentPostId).single();
+  let newC=(p?.likes||0)+1; await supa.from('posts').update({likes:newC}).eq('id',currentPostId);
+  num.textContent=newC.toLocaleString(); num.style.color='#FFD700';
+ } else {
+  i.textContent='♡'; i.style.color='#c9a86a';
+  await supa.from('post_likes').delete().eq('post_id',currentPostId).eq('user_id',dev);
+  let {data:p}=await supa.from('posts').select('likes').eq('id',currentPostId).single();
+  let newC=Math.max(0,(p?.likes||1)-1); await supa.from('posts').update({likes:newC}).eq('id',currentPostId);
+  num.textContent=newC.toLocaleString();
+ }
 }
-async function sharePost(url){
- if(navigator.share){try{await navigator.share({title:'FAME',url:url});return}catch(e){}}
- await navigator.clipboard.writeText(url);
- alert('Link copied!');
-  }</script>
-<style>
-.cmedia{position:relative!important;display:block!important}
-.main-img, .cmedia img, .cmedia video{width:100%!important;height:520px!important;object-fit:cover!important;display:block!important}
-.side, .cmedia > div:last-child{position:absolute!important;right:10px!important;top:50%!important;transform:translateY(-50%)!important;display:flex!important;flex-direction:column!important;gap:24px!important;background:transparent!important;width:auto!important;z-index:999!important}
-.act b, .side b{color:#c9a86a!important;font-size:13px!important;font-weight:800!important}
-</style></body>
-</html>
+function openC(){document.getElementById('detailComments').style.display='block';}
+function addComment(){let inp=document.getElementById('commentInput');let list=document.getElementById('commentList');if(!inp.value.trim())return;let d=document.createElement('div');d.textContent='You: '+inp.value; d.style.padding='6px 0'; list.prepend(d); inp.value='';}
+async function sharePost(){if(navigator.share){try{await navigator.share({url:currentUrl});return}catch(e){}}await navigator.clipboard.writeText(currentUrl);alert('Link copied!');}
+</script></body></html>
  
