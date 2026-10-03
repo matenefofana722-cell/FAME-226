@@ -99,7 +99,10 @@ body{background:#1e1e28;color:#fff;font-family:-apple-system,sans-serif;padding-
 
 <div id="storyModal" onclick="this.style.display='none'"><img id="storyImg"></div>
 
-<script>
+<script><script>
+const SUPA_URL='https://YOUR_PROJECT_ID.supabase.co';
+const SUPA_KEY='sb_publishable_YOUR_REAL_KEY_HERE';
+const supa = window.supabase.createClient(SUPA_URL,SUPA_KEY);
 function switchTab(t,btn){
 document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
 btn.classList.add('active');
