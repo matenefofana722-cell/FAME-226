@@ -79,15 +79,31 @@ async function loadFeed(){
     list.innerHTML=`<div class="card"><div class="chead"><img src="https://i.pravatar.cc/150?img=5"><div><div style="font-size:13px;font-weight:700">citylens_london</div><div style="font-size:11px;color:#888">34m ago • Add REAL Supabase keys to see real posts</div></div></div><img class="main-img" src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=700"><div class="cap">London nights ✨ fit check #fame #night #style — Replace YOUR_PROJECT_ID with real keys!</div></div>`;
   }
 }
+let isPosting = false;
 async function createPost(){
-  let f=fileInput.files[0], s=status; if(!f){s.innerText='Pick file!';return}
-  if(!supa){alert('Put REAL Supabase keys first!');return}
-  s.innerText='Uploading...'; try{
-    let n=Date.now()+'_'+f.name.replace(/\s/g,'_'); let {error:up}=await supa.storage.from('videos').upload(n,f); if(up)throw up;
-    let {data}=supa.storage.from('videos').getPublicUrl(n);
-    let {error:db}=await supa.from('posts').insert([{video_url:data.publicUrl,caption:caption.value,username:'citylens_london'}]); if(db)throw db;
-    s.innerText='Posted! 🔥'; setTimeout(()=>{closeCreate();loadFeed();showPage('feed')},900)
-  }catch(e){s.innerText=e.message}
+  if(isPosting) return;
+  let fileEl = document.getElementById('fileInput');
+  let statusEl = document.getElementById('status');
+  let postBtn = document.querySelector('#createModal button');
+  let f = fileEl?.files[0];
+  if(!f){ statusEl.innerText='Pick file!'; return; }
+  if(!supa){ alert('Put REAL Supabase keys first!'); return; }
+
+  isPosting = true;
+  if(postBtn){ postBtn.disabled=true; postBtn.innerText='Posting...'; postBtn.style.opacity='0.5'; }
+  statusEl.innerText='Uploading...';
+  try{
+    let n = Date.now()+'_'+f.name.replace(/\s/g,'_');
+    let {error:up} = await supa.storage.from('videos').upload(n, f);
+    if(up) throw up;
+    let {data} = supa.storage.from('videos').getPublicUrl(n);
+    let {error:db} = await supa.from('posts').insert([{video_url:data.publicUrl, caption: document.getElementById('caption')?.value || '', username: 'fame_'+Math.random().toString(36).slice(2,6)}]);
+    if(db) throw db;
+    statusEl.innerText='Posted! 🔥';
+    fileEl.value='';
+    setTimeout(()=>{ closeCreate(); loadFeed(); showPage('feed'); statusEl.innerText=''; }, 600);
+  }catch(e){ statusEl.innerText=e.message; }
+  finally{ isPosting=false; if(postBtn){ postBtn.disabled=false; postBtn.innerText='POST'; postBtn.style.opacity='1'; } }
 }
 function like(el){ el.classList.toggle('liked'); }
 loadFeed();
