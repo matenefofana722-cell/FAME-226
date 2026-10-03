@@ -298,52 +298,7 @@ function closeCreateModal(){
 window.addEventListener('load', ()=>{
   switchTab('feed', document.querySelector('.tabs button'));
 });</script></body></html>
- <!DOCTYPE html>
-<html>
-<head>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FAME</title>
-<style>
-body{background:#000;color:#fff;font-family:Arial;margin:0}
-.tabs{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:space-around;background:#111;padding:12px 0;border-top:1px solid #222;z-index:100}
-.tabs button{background:none;border:none;color:#888;font-size:14px}
-.tabs button.active{color:#FFD700}
-#tab-feed{display:flex;flex-direction:column;padding:10px;padding-bottom:80px}
-.post{background:#111;border-radius:12px;margin:10px 0;padding:10px;border:1px solid #222}
-#createModal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.9);display:none;flex-direction:column;align-items:center;justify-content:center;z-index:999}
-#createModal.box{background:#111;padding:20px;border-radius:16px;width:90%;max-width:400px}
-button.postBtn{background:#FFD700;color:#000;border:none;padding:12px;border-radius:10px;width:100%;font-weight:bold;margin-top:10px}
-</style>
-</head>
-<body>
-
-<div id="tab-feed"></div>
-<div id="tab-explore" style="display:none;padding:20px;padding-bottom:80px"><h2>🔍 Explore</h2><p>FAME trending soon...</p></div>
-<div id="tab-inbox" style="display:none;padding:20px;padding-bottom:80px"><h2>📩 Inbox</h2><p>No messages yet</p></div>
-<div id="tab-profile" style="display:none;padding:20px;padding-bottom:80px"><h2>👤 Profile</h2><p id="myId"></p></div>
-
-<div class="tabs">
-<button class="active" onclick="switchTab('feed',this)">Feed</button>
-<button onclick="switchTab('explore',this)">Explore</button>
-<button onclick="openCreateModal()">Create</button>
-<button onclick="switchTab('inbox',this)">Inbox</button>
-<button onclick="switchTab('profile',this)">Profile</button>
-</div>
-
-<div id="createModal">
-<div class="box">
-<h3>Create Post ✨</h3>
-<input type="file" id="fileInput" accept="image/*,video/*">
-<textarea id="caption" placeholder="Caption..." style="width:100%;margin-top:10px;background:#222;color:#fff;border:none;padding:10px;border-radius:8px"></textarea>
-<button class="postBtn" onclick="createPost()">Post to FAME 🚀</button>
-<button style="margin-top:10px;background:none;border:none;color:#888;width:100%" onclick="closeCreateModal()">Cancel</button>
-<p id="status" style="color:#FFD700;text-align:center"></p>
-</div>
-</div>
-
-<script>
+ -
 // === YOUR REAL KEYS HERE - REPLACE ===
 const SUPA_URL='https://YOUR_PROJECT_ID.supabase.co';
 const SUPA_KEY='sb_publishable_YOUR_REAL_KEY';
