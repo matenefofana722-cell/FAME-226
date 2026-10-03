@@ -271,5 +271,31 @@ async function likePost(el){
 function openC(){document.getElementById('detailComments').style.display='block';}
 function addComment(){let inp=document.getElementById('commentInput');let list=document.getElementById('commentList');if(!inp.value.trim())return;let d=document.createElement('div');d.textContent='You: '+inp.value; d.style.padding='6px 0'; list.prepend(d); inp.value='';}
 async function sharePost(){if(navigator.share){try{await navigator.share({url:currentUrl});return}catch(e){}}await navigator.clipboard.writeText(currentUrl);alert('Link copied!');}
-</script></body></html>
+// FAME EMERGENCY BUTTON FIX
+function switchTab(name, btn){
+  document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  document.querySelectorAll('[id^=\"tab-\"]').forEach(t=>t.style.display='none');
+  const target = document.getElementById('tab-'+name);
+  if(target) target.style.display='block';
+  // feed special
+  if(name==='feed'){
+    const f=document.getElementById('tab-feed') || document.getElementById('feed');
+    if(f) f.style.display='flex';
+  }
+  console.log('Switched to', name);
+}
+function openCreateModal(){
+  const m=document.getElementById('createModal');
+  if(m) m.style.display='flex';
+  else alert('Create modal not found - add id=createModal');
+}
+function closeCreateModal(){
+  const m=document.getElementById('createModal');
+  if(m) m.style.display='none';
+}
+// make sure feed visible on load
+window.addEventListener('load', ()=>{
+  switchTab('feed', document.querySelector('.tabs button'));
+});</script></body></html>
  
