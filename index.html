@@ -157,31 +157,25 @@ let m=document.createElement('div');m.className='msg me';m.innerText=i.value;box
 <script>
 function openCreateModal(){
  document.getElementById('createModal').style.display='flex'
-}function openCreateModal(){
-  document.getElementById('createModal').style.display='flex'
 }
 let myId = localStorage.getItem('myId');
 if(!myId){ myId = 'user_'+Date.now(); localStorage.setItem('myId', myId); }
-
-function closeCreateModal(){let myId = localStorage.getItem('myId');
-if(!myId){ myId = 'user_'+Date.now(); localStorage.setItem('myId', myId); }
- 
 function closeCreateModal(){
  document.getElementById('createModal').style.display='none'
 }
 async function createPost(){
-  const f=document.getElementById('postFile').files[0];
-  const c=document.getElementById('postCaption').value;
-  const { error: dbErr } = await supa.from('posts').insert([{url:url, user_id: myId}]);
-  const fileName=Date.now()+'-'+f.name.replace(/ /g,'_');
-  const {error} = await supa.storage.from('videos').upload(fileName,f);
-  if(error){alert(error.message);return}
-  const {data}=supa.storage.from('videos').getPublicUrl(fileName);
-  const url=data.publicUrl;
-const { error: dbErr } = await supa.from('posts').insert([{url:url}]);  
-if(dbErr){ alert('DB Error: '+dbErr.message); return; }
-  location.reload();
-}
+ const f=document.getElementById('postFile').files[0];
+ const c=document.getElementById('postCaption').value;
+ if(!f){ alert('pick a file'); return; }
+ const fileName=Date.now()+'-'+f.name.replace(/ /g,'_');
+ const {error} = await supa.storage.from('videos').upload(fileName,f);
+ if(error){alert(error.message);return}
+ const {data}=supa.storage.from('videos').getPublicUrl(fileName);
+ const url=data.publicUrl;
+ const { error: dbErr } = await supa.from('posts').insert([{url:url, user_id: myId, caption:c}]);
+ if(dbErr){ alert('DB Error: '+dbErr.message); return; }
+ location.reload();
+ }
 function toggleDel(id){
   const m=document.getElementById('del-'+id);
   m.style.display=m.style.display==='none'?'block':'none';
