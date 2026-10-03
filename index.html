@@ -219,9 +219,9 @@ async function loadMyProfile(){
   data.forEach(p=>{
     const isV=p.url.includes('.mp4')||p.url.includes('.mov')||p.url.includes('video');
     const el=document.createElement('div');
-    el.style.cssText='aspect-ratio:3/4;background:#222;border-radius:4px;overflow:hidden;position:relative';
-    el.innerHTML=isV?`<video src="${p.url}" style="width:100%;height:100%;object-fit:cover" muted></video><span style="position:absolute;bottom:4px;left:4px;background:rgba(0,0,0,.6);padding:2px 4px;border-radius:3px;font-size:10px">▶</span>`:`<img src="${p.url}" style="width:100%;height:100%;object-fit:cover">`;
-    el.onclick=()=> window.open(p.url,'_blank');
+    el.style.cssText='aspect-ratio:3/4;background:#111;border-radius:8px;overflow:hidden;position:relative;border:1px solid #222';
+    el.innerHTML=isV?`<video src="${p.url}#t=0.1" preload="metadata" muted playsinline style="width:100%;height:100%;object-fit:cover"></video><div style="position:absolute;bottom:5px;left:5px;background:rgba(0,0,0,.7);padding:2px 6px;border-radius:4px;font-size:11px;color:#fff">▶</div>`:`<img src="${p.url}" style="width:100%;height:100%;object-fit:cover">`;
+    el.onclick=()=>{ const m=document.getElementById('storyModal'); if(m){ const old=document.getElementById('storyImg'); if(isV){ old.outerHTML=`<video id="storyImg" src="${p.url}" controls autoplay style="max-width:90vw;max-height:80vh;border-radius:12px"></video>`; }else{ old.outerHTML=`<img id="storyImg" src="${p.url}" style="max-width:90vw;max-height:80vh;border-radius:12px">`; } m.style.display='flex'; }else window.open(p.url,'_blank'); };    
     grid.appendChild(el);
   });
   const pc=document.getElementById('postCount'); if(pc) pc.innerText=data.length;
