@@ -298,4 +298,109 @@ function closeCreateModal(){
 window.addEventListener('load', ()=>{
   switchTab('feed', document.querySelector('.tabs button'));
 });</script></body></html>
- 
+ <!DOCTYPE html>
+<html>
+<head>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FAME</title>
+<style>
+body{background:#000;color:#fff;font-family:Arial;margin:0}
+.tabs{position:fixed;bottom:0;left:0;right:0;display:flex;justify-content:space-around;background:#111;padding:12px 0;border-top:1px solid #222;z-index:100}
+.tabs button{background:none;border:none;color:#888;font-size:14px}
+.tabs button.active{color:#FFD700}
+#tab-feed{display:flex;flex-direction:column;padding:10px;padding-bottom:80px}
+.post{background:#111;border-radius:12px;margin:10px 0;padding:10px;border:1px solid #222}
+#createModal{position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.9);display:none;flex-direction:column;align-items:center;justify-content:center;z-index:999}
+#createModal.box{background:#111;padding:20px;border-radius:16px;width:90%;max-width:400px}
+button.postBtn{background:#FFD700;color:#000;border:none;padding:12px;border-radius:10px;width:100%;font-weight:bold;margin-top:10px}
+</style>
+</head>
+<body>
+
+<div id="tab-feed"></div>
+<div id="tab-explore" style="display:none;padding:20px;padding-bottom:80px"><h2>🔍 Explore</h2><p>FAME trending soon...</p></div>
+<div id="tab-inbox" style="display:none;padding:20px;padding-bottom:80px"><h2>📩 Inbox</h2><p>No messages yet</p></div>
+<div id="tab-profile" style="display:none;padding:20px;padding-bottom:80px"><h2>👤 Profile</h2><p id="myId"></p></div>
+
+<div class="tabs">
+<button class="active" onclick="switchTab('feed',this)">Feed</button>
+<button onclick="switchTab('explore',this)">Explore</button>
+<button onclick="openCreateModal()">Create</button>
+<button onclick="switchTab('inbox',this)">Inbox</button>
+<button onclick="switchTab('profile',this)">Profile</button>
+</div>
+
+<div id="createModal">
+<div class="box">
+<h3>Create Post ✨</h3>
+<input type="file" id="fileInput" accept="image/*,video/*">
+<textarea id="caption" placeholder="Caption..." style="width:100%;margin-top:10px;background:#222;color:#fff;border:none;padding:10px;border-radius:8px"></textarea>
+<button class="postBtn" onclick="createPost()">Post to FAME 🚀</button>
+<button style="margin-top:10px;background:none;border:none;color:#888;width:100%" onclick="closeCreateModal()">Cancel</button>
+<p id="status" style="color:#FFD700;text-align:center"></p>
+</div>
+</div>
+
+<script>
+// === YOUR REAL KEYS HERE - REPLACE ===
+const SUPA_URL='https://YOUR_PROJECT_ID.supabase.co';
+const SUPA_KEY='sb_publishable_YOUR_REAL_KEY';
+const supa = window.supabase.createClient(SUPA_URL,SUPA_KEY);
+// === END KEYS ===
+
+const myIdEl=document.getElementById('myId');
+if(myIdEl) myIdEl.innerText='ID: '+Math.random().toString(36).substring(2,8);
+
+function switchTab(name, btn){
+  document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  document.getElementById('tab-feed').style.display='none';
+  document.getElementById('tab-explore').style.display='none';
+  document.getElementById('tab-inbox').style.display='none';
+  document.getElementById('tab-profile').style.display='none';
+  document.getElementById('tab-'+name).style.display='block';
+}
+function openCreateModal(){ document.getElementById('createModal').style.display='flex'; }
+function closeCreateModal(){ document.getElementById('createModal').style.display='none'; }
+
+async function createPost(){
+  const file=document.getElementById('fileInput').files[0];
+  const caption=document.getElementById('caption').value;
+  const status=document.getElementById('status');
+  if(!file){ status.innerText='Pick file first!'; return; }
+  status.innerText='Uploading to FAME... ✨';
+  try{
+    const name=Date.now()+'_'+file.name;
+    const {error:upErr}=await supa.storage.from('videos').upload(name,file);
+    if(upErr) throw upErr;
+    const {data}=supa.storage.from('videos').getPublicUrl(name);
+    const url=data.publicUrl;
+    const {error:dbErr}=await supa.from('posts').insert([{video_url:url,caption:caption,username:'fame_user'}]);
+    if(dbErr) throw dbErr;
+    status.innerText='Posted! 🔥';
+    setTimeout(()=>{closeCreateModal(); location.reload();},1000);
+  }catch(e){
+    status.innerText='Error: '+e.message;
+    alert(e.message);
+  }
+}
+
+async function loadFeed(){
+  const feed=document.getElementById('tab-feed');
+  const {data,error}=await supa.from('posts').select('*').order('created_at',{ascending:false});
+  if(error){ feed.innerHTML='<p>Error: '+error.message+'<br>Make posts table public!</p>'; return; }
+  feed.innerHTML='';
+  data.forEach(p=>{
+    const div=document.createElement('div');
+    div.className='post';
+    const isVid=p.video_url?.includes('.mp4')||p.video_url?.includes('.mov');
+    div.innerHTML=`<p>${p.caption||''}</p>${isVid?`<video src="${p.video_url}" controls style="width:100%;border-radius:10px"></video>`:`<img src="${p.video_url}" style="width:100%;border-radius:10px">`}`;
+    feed.appendChild(div);
+  });
+}
+loadFeed();
+</script>
+</body>
+</html>
