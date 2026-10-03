@@ -59,8 +59,8 @@ function closeCreate(){document.getElementById('createModal').style.display='non
 document.getElementById('uid').innerText='fame_'+Math.random().toString(36).slice(2,7);
 
 // === SAFE SUPABASE ===
-https://oxrwfvccrvbnpernnowr.supabase.co
-sb_publishable_t6xdTa2WF8LBXq1hCllOIA_1bPjCJYU
+const SUPA_URL='https://oxrwfvccrvbnpernnowr.supabase.co';
+const SUPA_KEY='sb_publishable_t6xdTa2WF8LBXq1hCllOIA_1bPjCJYU';
 let supa=null;
 try{ if(!SUPA_URL.includes('YOUR_PROJECT')) supa=supabase.createClient(SUPA_URL,SUPA_KEY); }catch(e){}
 
