@@ -1,300 +1,94 @@
-<!DOCTYPE html>
-<html>
- <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-<link rel="icon" href="icon-512.png">
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FAME</title>
+<!DOCTYPE html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FAME</title><link rel="icon" href="icon-512.png">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{background:#1e1e28;color:#fff;font-family:-apple-system,sans-serif;padding-bottom:90px}
-.top{text-align:center;padding:22px 0 14px;font-size:38px;letter-spacing:7px;color:#e6c78a;font-family:Georgia,serif;font-weight:900}
-.tabs{display:flex;gap:8px;padding:0 14px 16px}
-.tabs button{flex:1;padding:11px;border-radius:12px;border:1.2px solid #e6c78a;background:#2a2a36;color:#e6c78a;font-weight:700;transition:.2s}
-.tabs button.active{background:#e6c78a;color:#1e1e28}
-.label{padding:0 16px 10px;color:#888;font-size:13px}
-.stories{display:flex;gap:14px;padding:0 14px 20px;overflow:auto}
-.stories::-webkit-scrollbar{display:none}
-.s{text-align:center;min-width:68px;font-size:11px;color:#bbb;cursor:pointer}
-.ring{width:64px;height:64px;border-radius:50%;border:2px solid #e6c78a;padding:2.5px;margin:0 auto 6px;background:#2a2a36;transition:.2s}
-.ring:active{transform:scale(.9)}
-.ring img{width:100%;height:100%;border-radius:50%;object-fit:cover}
-.you-wrap{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#e6c78a,#ff8ec8);padding:2.5px;margin:0 auto 6px}
-.you{width:100%;height:100%;border-radius:50%;background:#2a2a36;display:flex;align-items:center;justify-content:center;font-size:28px;color:#e6c78a}
-.feed{padding:0 12px;display:flex;flex-direction:column;gap:14px}
-.card{background:#2a2a36;border-radius:18px;overflow:hidden;border:1px solid #3a3a4a}
-.chead{display:flex;align-items:center;gap:10px;padding:11px 12px}
-.chead img{width:36px;height:36px;border-radius:50%;border:1.6px solid #e6c78a}
-.cmedia{position:relative;display:block;background:#000}
-.main-img{width:100%;height:520px;object-fit:cover;display:block}
-.side{position:absolute;right:10px;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:24px;width:auto;background:transparent;z-index:5}
-.act b{font-size:13px;color:#c9a86a;font-weight:800;display:block;margin-top:6px}
-.act{cursor:pointer;text-align:center;user-select:none;transition:.15s}
-.
-.act svg{width:22px;height:22px;stroke:#e6c78a;fill:none;stroke-width:1.6;display:block;margin:0 auto 4px}
-.act.liked svg{fill:#e6c78a;stroke:#e6c78a}
-.act b{font-size:11px;color:#e6c78a;font-weight:700}
-.badge{position:absolute;left:10px;bottom:10px;background:#e6c78a;color:#000;padding:4px 10px;border-radius:20px;font-size:11px;font-weight:800}
-.play{position:absolute;left:41%;top:50%;transform:translate(-50%,-50%);width:44px;height:44px;border-radius:50%;background:rgba(0,0,0,.5);border:2px solid #fff;display:flex;align-items:center;justify-content:center;cursor:pointer}
-.cap{padding:10px 12px;font-size:12.5px;color:#ddd}
-.page{display:none}.page.active{display:block}
-.nav{position:fixed;bottom:0;left:0;right:0;background:#1e1e28;border-top:1px solid #3a3a4a;display:flex;justify-content:space-around;padding:10px 0 22px;z-index:10}
-.nav button{background:none;border:none;color:#666;font-size:10px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:4px}
-.nav button.active{color:#e6c78a}
-#storyModal{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;z-index:99}
-#storyModal img{width:90%;max-width:380px;border-radius:20px;border:2px solid #e6c78a}
-#chatBox{padding:14px;display:flex;flex-direction:column;gap:10px}
-.msg{background:#2a2a36;padding:10px 14px;border-radius:14px;border:1px solid #3a3a4a;font-size:13px;max-width:80%}
-.msg.me{align-self:flex-end;background:#e6c78a;color:#000}
-#createModal{position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:999;display:none;flex-direction:column;align-items:center;justify-content:center;padding:20px}</style>
-</head>
-<body>
+*{margin:0;padding:0;box-sizing:border-box}body{background:#1e1e28;color:#fff;font-family:-apple-system,sans-serif;padding-bottom:85px}
+.top{text-align:center;padding:22px 0 14px;font-size:38px;letter-spacing:7px;color:#e6c78a;font-weight:900}
+.label{padding:8px 16px 10px;color:#888;font-size:13px}.stories{display:flex;gap:14px;padding:0 14px 20px;overflow:auto}.stories::-webkit-scrollbar{display:none}
+.s{text-align:center;min-width:68px;font-size:11px;color:#bbb;cursor:pointer}.s div{width:64px;height:64px;border-radius:50%;border:2px solid #e6c78a;padding:2.5px;margin:0 auto 4px}.s img{width:100%;height:100%;border-radius:50%;object-fit:cover}
+.feed{padding:0 12px;display:flex;flex-direction:column;gap:14px}.card{background:#2a2a36;border-radius:18px;overflow:hidden;border:1px solid #3a3a4a}
+.chead{display:flex;align-items:center;gap:10px;padding:11px 12px}.chead img{width:36px;height:36px;border-radius:50%;border:1.6px solid #e6c78a}
+.cmedia{position:relative;display:block;background:#000}.main-img{width:100%;height:520px;object-fit:cover;display:block}
+.act{cursor:pointer;text-align:center;user-select:none;transition:.15s;display:flex;align-items:center;gap:4px;padding:8px 10px}
+.act svg{width:22px;height:22px;stroke:#e6c78a;fill:none;stroke-width:1.6}.act.liked svg{fill:#e6c78a;stroke:#e6c78a}
+.act b{font-size:11px;color:#e6c78a;font-weight:700}.cap{padding:10px 12px;font-size:12.5px;color:#ddd}
+.page{display:none}.page.active{display:block}.page.active.feed{display:flex;flex-direction:column}
+.nav{position:fixed;bottom:0;left:0;right:0;background:#1e1e28;border-top:1px solid #333;display:flex;justify-content:space-around;padding:10px 0 18px;z-index:100}
+.nav button{background:none;border:none;color:#666;font-size:10px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:4px}.nav button.active{color:#e6c78a}
+#createModal{position:fixed;inset:0;background:rgba(0,0,0,.95);z-index:999;display:none;place-items:center;padding:20px}
+.box{background:#2a2a36;border-radius:18px;padding:18px;width:100%;max-width:380px}
+</style></head><body>
 <div class="top">FAME</div>
 
+<div id="pLive" class="page"><div class="label">🔴 Live Now</div><div style="padding:20px;color:#666">Live drops coming soon</div></div>
 
-<div id="pLive">
-<div class="label">Stories</div>
+<div id="feed" class="page active feed"><div class="label">London nights ✨</div>
 <div class="stories">
-<div class="s" onclick="openStory('Your Story','https://i.pravatar.cc/300?img=1')"><div class="you-wrap"><div class="you">+</div></div>Your Story</div>
-<div class="s" onclick="openStory('amelia._','https://i.pravatar.cc/300?img=5')"><div class="ring"><img src="https://i.pravatar.cc/150?img=5"></div>amelia._</div>
-<div class="s" onclick="openStory('jordan.k','https://i.pravatar.cc/300?img=12')"><div class="ring"><img src="https://i.pravatar.cc/150?img=12"></div>jordan.k</div>
-<div class="s" onclick="openStory('luxe_d','https://i.pravatar.cc/300?img=32')"><div class="ring"><img src="https://i.pravatar.cc/150?img=32"></div>luxe_d</div>
-<div class="s" onclick="openStory('marc._','https://i.pravatar.cc/300?img=15')"><div class="ring"><img src="https://i.pravatar.cc/150?img=15"></div>marc._</div>
+<div class="s" onclick="alert('Your Story')"><div><img src="https://i.pravatar.cc/300?img=1"></div>Your Story</div>
+<div class="s"><div><img src="https://i.pravatar.cc/300?img=5"></div>amelia._</div>
+<div class="s"><div><img src="https://i.pravatar.cc/300?img=12"></div>jordan.k</div>
+</div>
+<div id="feedList" class="feed"></div>
 </div>
 
-<div id="feed" class="page active"><div class="feed">
-<div class="card">
-<div class="chead"><img src="https://i.pravatar.cc/150?img=5"><div><div style="font-size:13px;font-weight:700">noir.moda ✓</div><div style="font-size:11px;color:#e6c78a">London • 12m ago</div></div></div>
-<div class="cmedia"><img class="main-img" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=700" style="width:100%;display:block">
+<div id="explorer" class="page"><div class="label">🔍 Explorer</div><div id="exploreGrid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;padding:2px"></div></div>
+<div id="inbox" class="page"><div class="label">📩 Inbox</div><div style="padding:16px;border-bottom:1px solid #222"><b>fame_official</b><br><span style="color:#666;font-size:13px">Welcome to FAME V2 🚀</span></div></div>
+<div id="profile" class="page"><div class="label">👤 Profile</div><div style="text-align:center;padding:30px"><div style="width:80px;height:80px;border-radius:50%;background:#e6c78a;margin:0 auto 12px"></div><b>Matene F.</b><p id="uid" style="color:#888;font-size:12px;margin-top:6px"></p><p style="color:#666;font-size:13px">19 • NW10 • 8.7K followers</p></div><div id="profileGrid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;padding:2px"></div></div>
 
-<div class="cap">London nights ✨ fit check #fame #night #style</div>
-</div>
-
-<div class="card">
-<div class="chead"><img src="https://i.pravatar.cc/150?img=33"><div><div style="font-size:13px;font-weight:700">citylens_london</div><div style="font-size:11px;color:#e6c78a">34m ago • Photos</div></div></div>
-<img src="https://images.unsplash.com/photo-1486299267070-83823f5448dd?w=700" style="width:100%;height:220px;object-fit:cover">
-<div style="padding:10px 12px;display:flex;gap:18px">
-<div class="act" onclick="like(this)"><svg viewBox="0 0 24 24"><path d="M12 21s-6.5-4.5-9-8.5S5 4 12 8s9 3.5 6.5 8.5S12 21 12 21z"/></svg><b>8.7K</b></div>
-<div class="act" onclick="commentPost('citylens')"><svg viewBox="0 0 24 24"><path d="M21 11.5a8.5 8.5 0 0 1-12.5 7.5L3 21l2-5.5A8.5 8.5 0 0 1 21 11.5z"/></svg><b>291</b></div>
-<div class="act" onclick="sharePost()"><svg viewBox="0 0 24 24"><path d="M12 2v14M5 9l7-7 7 7"/><path d="M3 18v2h18v-2"/></svg><b>104</b></div>
-</div>
-<div class="cap">Late night views from Southbank 🌙✨ golden hour turned midnight. #london #citylens #fameapp</div>
-</div>
-</div></div>
-</div>
-
-<div id="pChat" style="display:none"><div id="chatBox"><div class="msg">Yo bro FAME is fire 🔥 — amelia._</div><div class="msg me">Thanks! Just dropped London nights</div><div style="display:flex;gap:8px;padding:12px"><input id="chatIn" placeholder="Message..." style="flex:1;padding:12px;border-radius:12px;border:1px solid #3a3a4a;background:#2a2a36;color:#fff"><button onclick="sendChat()" style="padding:12px 16px;border-radius:12px;background:#e6c78a;border:none;font-weight:800">Send</button></div></div></div>
-
-<div id="pWall" style="display:none"><p style="text-align:center;padding:80px;color:#888">🏆 Fame Wall<br><span style="font-size:13px">Top 10 trending in London tonight</span><br><br>1. noir.moda — 12.4K<br>2. citylens_london — 8.7K</p></div>
-
-<div id="explorer" class="page"><p style="text-align:center;padding:80px;color:#888">◎ Explorer NW10 🔥<br>Discover talents near you</p></div>
-<div id="inbox" class="page"><p style="text-align:center;padding:80px;color:#888">✉ Inbox — 1 new</p></div>
-<div id="profile" class="page"><div style="text-align:center;padding:20px 0 10px"><div style="width:80px;height:80px;border-radius:50%;background:#e6c78a;color:#000;font-size:36px;display:flex;align-items:center;justify-content:center;margin:0 auto;font-weight:800">M</div><div style="margin-top:8px;font-weight:700">@london_boy</div><div style="display:flex;justify-content:center;gap:22px;margin-top:12px"><div><b id="postCount">0</b><br><span style="font-size:11px;color:#888">Posts</span></div><div><b>0</b><br><span style="font-size:11px;color:#888">Followers</span></div><div><b>0</b><br><span style="font-size:11px;color:#888">Following</span></div><div><b id="likeCount">0</b><br><span style="font-size:11px;color:#888">Likes</span></div></div></div><div id="profileGrid" style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;padding:2px"></div></div>
 <div class="nav">
-<button class="active" onclick="goPage('feed',this)"><span style="font-size:20px">⌂</span>Feed</button>
-<button onclick="openCreateModal()"><span style="font-size:20px">+</span>Create</button><button onclick="goPage('explorer',this)"><span style="font-size:20px">◎</span>Explorer</button>  
-<button onclick="goPage('inbox',this)"><span style="font-size:20px">✉</span>Inbox</button>
-<button onclick="goPage('profile',this)"><span style="font-size:20px">○</span>Profile</button>
-</div><div id="createModal"><div style="background:#111;border:1px solid #333;border-radius:20px;padding:25px;width:90%;max-width:400px"><h2 style="margin:0 0 15px;color:#fff">Create New</h2><button onclick="document.getElementById('postFile').click()" style="width:100%;padding:15px;background:#222;border:1px dashed #555;border-radius:12px;color:#fff;margin-bottom:15px">📸 Select Photo/Video</button><input id="postFile" type="file" accept="image/*,video/*" style="display:none"><textarea id="postCaption" placeholder="Write caption..." style="width:100%;height:80px;background:#222;border:1px solid #333;border-radius:10px;color:#fff;padding:10px"></textarea><div style="display:flex;gap:10px;margin-top:15px"><button onclick="closeCreateModal()" style="flex:1;padding:12px;background:#222;border:none;border-radius:10px;color:#fff">Cancel</button><button onclick="createPost()" style="flex:1;padding:12px;background:#e6c78a;border:none;border-radius:10px;color:#000;font-weight:bold">Post</button></div></div></div>
+<button id="btn-pLive" onclick="showPage('pLive')">⌂<br>Live</button>
+<button id="btn-feed" class="active" onclick="showPage('feed')">⌂<br>Feed</button>
+<button id="btn-explorer" onclick="showPage('explorer')">◎<br>Explorer</button>
+<button id="btn-create" onclick="openCreate()">+<br>Create</button>
+<button id="btn-inbox" onclick="showPage('inbox')">✉<br>Inbox</button>
+<button id="btn-profile" onclick="showPage('profile')">○<br>Profile</button>
+</div>
 
-<div id="storyModal" onclick="this.style.display='none'"><img id="storyImg"></div>
-
-<script><script>
-const SUPA_URL='https://YOUR_PROJECT_ID.supabase.co';
-const SUPA_KEY='sb_publishable_YOUR_REAL_KEY_HERE';
-const supa = window.supabase.createClient(SUPA_URL,SUPA_KEY);
-function switchTab(t,btn){
-document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
-btn.classList.add('active');
-document.getElementById('pLive').style.display=t==='live'?'block':'none';
-document.getElementById('pChat').style.display=t==='chat'?'block':'none';
-document.getElementById('pWall').style.display=t==='wall'?'block':'none';
-}
-function goPage(id,b){
- document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
- document.getElementById(id).classList.add('active');
- if(id==='profile'){ loadMyProfile(); }
- document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));
- if(b) b.classList.add('active');
-}
-function like(el){
-el.classList.toggle('liked');
-let numEl=el.querySelector('b');
-let txt=numEl.innerText.replace('K','');
-let num=parseFloat(txt);
-if(el.classList.contains('liked')){
-if(txt.includes('K')) num+=0.1; else num+=1;
-navigator.vibrate&&navigator.vibrate(20);
-}else{
-if(txt.includes('K')) num-=0.1; else num-=1;
-}
-numEl.innerText = num.toFixed(1)+'K';
-}
-function commentPost(user){
-let c=prompt('Comment on '+user+':');
-if(c) alert('Posted: "'+c+'" — will save to Supabase next!');
-}
-function sharePost(){
-if(navigator.share){navigator.share({title:'FAME',url:location.href})}
-else{navigator.clipboard.writeText(location.href);alert('Link copied! 🔗');}
-}
-function openStory(name,img){
-document.getElementById('storyImg').src=img;
-document.getElementById('storyModal').style.display='flex';
-setTimeout(()=>{document.getElementById('storyModal').style.display='none'},3000);
-}
-function sendChat(){
-let i=document.getElementById('chatIn');if(!i.value) return;
-let box=document.getElementById('chatBox');
-let m=document.createElement('div');m.className='msg me';m.innerText=i.value;box.insertBefore(m,box.lastElementChild);i.value='';
-}
-</script>
+<div id="createModal"><div class="box"><h3>Create ✨</h3><input type="file" id="fileInput" accept="image/*,video/*" style="width:100%;background:#1e1e28;color:#fff;padding:10px;border-radius:10px;border:1px solid #333;margin-top:10px"><textarea id="caption" placeholder="London nights #fame" style="width:100%;background:#1e1e28;color:#fff;border:1px solid #333;padding:10px;border-radius:10px;margin-top:10px;min-height:70px"></textarea><button onclick="createPost()" style="width:100%;background:#e6c78a;color:#000;border:none;padding:12px;border-radius:12px;font-weight:900;margin-top:12px">POST 🚀</button><button onclick="closeCreate()" style="width:100%;background:none;border:none;color:#666;padding:10px;margin-top:6px">Cancel</button><p id="status" style="color:#e6c78a;text-align:center;margin-top:8px;font-size:12px"></p></div></div>
 
 <script>
-function openCreateModal(){
- document.getElementById('createModal').style.display='flex'
+// === BUTTONS FIRST - NO CRASH ===
+function showPage(name){
+  document.querySelectorAll('.page').forEach(p=>{p.classList.remove('active'); p.style.display='none'});
+  let t=document.getElementById(name); if(t){t.classList.add('active'); t.style.display=name==='feed'?'flex':'block'}
+  document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('active'));
+  let b=document.getElementById('btn-'+name); if(b) b.classList.add('active');
 }
-let myId = localStorage.getItem('myId');
-if(!myId){ myId = 'user_'+Date.now(); localStorage.setItem('myId', myId); }
-function closeCreateModal(){
- document.getElementById('createModal').style.display='none'
+function openCreate(){document.getElementById('createModal').style.display='grid'}
+function closeCreate(){document.getElementById('createModal').style.display='none'}
+document.getElementById('uid').innerText='fame_'+Math.random().toString(36).slice(2,7);
+
+// === SAFE SUPABASE ===
+const SUPA_URL='https://YOUR_PROJECT_ID.supabase.co'; // REPLACE
+const SUPA_KEY='sb_publishable_YOUR_KEY'; // REPLACE
+let supa=null;
+try{ if(!SUPA_URL.includes('YOUR_PROJECT')) supa=supabase.createClient(SUPA_URL,SUPA_KEY); }catch(e){}
+
+async function loadFeed(){
+  let list=document.getElementById('feedList');
+  try{
+    if(!supa) throw 'no supa';
+    let {data}=await supa.from('posts').select('*').order('created_at',{ascending:false}).limit(20);
+    if(!data||!data.length) throw 'empty';
+    list.innerHTML=''; data.forEach(p=>{
+      let isV=p.video_url.includes('.mp4');
+      list.innerHTML+=`<div class="card"><div class="chead"><img src="https://i.pravatar.cc/150?img=5"><div><div style="font-size:13px;font-weight:700">${p.username||'citylens_london'}</div><div style="font-size:11px;color:#888">34m ago</div></div></div><div class="cmedia">${isV?`<video src="${p.video_url}" controls style="width:100%;height:520px;object-fit:cover"></video>`:`<img class="main-img" src="${p.video_url}">`}</div><div style="display:flex;gap:6px;padding:4px 6px"><div class="act" onclick="like(this)"><svg viewBox="0 0 24 24"><path d="M12 21s-6.5-4.35-8.5-7.5A4.5 4.5 0 0 1 12 8a4.5 4.5 0 0 1 8.5 5.5C18.5 16.65 12 21 12 21z"></path></svg><b>${p.likes||'8.7K'}</b></div><div class="act"><b>💬 291</b></div></div><div class="cap">${p.caption||'London nights ✨'}</div></div>`;
+    });
+    document.getElementById('exploreGrid').innerHTML=list.innerHTML;
+  }catch(e){
+    list.innerHTML=`<div class="card"><div class="chead"><img src="https://i.pravatar.cc/150?img=5"><div><div style="font-size:13px;font-weight:700">citylens_london</div><div style="font-size:11px;color:#888">34m ago • Add REAL Supabase keys to see real posts</div></div></div><img class="main-img" src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=700"><div class="cap">London nights ✨ fit check #fame #night #style — Replace YOUR_PROJECT_ID with real keys!</div></div>`;
+  }
 }
 async function createPost(){
- const f=document.getElementById('postFile').files[0];
- const c=document.getElementById('postCaption').value;
- if(!f){ alert('pick a file'); return; }
- const fileName=Date.now()+'-'+f.name.replace(/ /g,'_');
- const {error} = await supa.storage.from('videos').upload(fileName,f);
- if(error){alert(error.message);return}
- const {data}=supa.storage.from('videos').getPublicUrl(fileName);
- const url=data.publicUrl;
- const { error: dbErr } = await supa.from('posts').insert([{url:url, user_id: myId, caption:c}]);
- if(dbErr){ alert('DB Error: '+dbErr.message); return; }
- location.reload();
- }
-function toggleDel(id){
-  const m=document.getElementById('del-'+id);
-  m.style.display=m.style.display==='none'?'block':'none';
+  let f=fileInput.files[0], s=status; if(!f){s.innerText='Pick file!';return}
+  if(!supa){alert('Put REAL Supabase keys first!');return}
+  s.innerText='Uploading...'; try{
+    let n=Date.now()+'_'+f.name.replace(/\s/g,'_'); let {error:up}=await supa.storage.from('videos').upload(n,f); if(up)throw up;
+    let {data}=supa.storage.from('videos').getPublicUrl(n);
+    let {error:db}=await supa.from('posts').insert([{video_url:data.publicUrl,caption:caption.value,username:'citylens_london'}]); if(db)throw db;
+    s.innerText='Posted! 🔥'; setTimeout(()=>{closeCreate();loadFeed();showPage('feed')},900)
+  }catch(e){s.innerText=e.message}
 }
-async function removePost(id){
-  if(confirm('Delete?')){
-    document.getElementById(id)?.remove();
-    await supa.from('posts').delete().eq('id',id);
-  }
-}
-async function loadForever(){
-  const {data}=await supa.from('posts').select('*').order('created_at',{ascending:false});
-  if(!data) return;
-  const feed=document.getElementById('feed');
-  if(!feed) return;
-  feed.innerHTML='';
-    data.forEach(p=>{
-    if(document.getElementById(p.id)) return;
-    const d=document.createElement('div');
-    d.id=p.id; d.className='post';
-    d.style.cssText='border:1px solid #333;margin:12px 0;border-radius:16px;overflow:hidden;background:#111;position:relative';
-    const isV=p.url.includes('.mp4')||p.url.includes('.mov')||p.url.includes('.webm');
-    d.innerHTML='<div onclick="openPost(\''+p.id+'\',\''+p.url+'\','+isV+')">'+(isV?'<video src="'+p.url+'" muted loop playsinline style="width:100%;display:block" poster="'+p.url+'#t=0.1"></video>':'<img src="'+p.url+'" style="width:100%;display:block">')+'</div>';
-    feed.prepend(d);
-  });
-}
-
-async function loadMyProfile(){
-  const grid=document.getElementById('profileGrid');
-  if(!grid) return;
-  grid.innerHTML='<p style="padding:20px;color:#888">Loading...</p>';
-  const {data,error}=await supa.from('posts').select('*').eq('user_id',myId).order('created_at',{ascending:false});
-  if(error){ grid.innerHTML=error.message; return; }
-  if(!data||data.length==0){
-    grid.innerHTML='<p style="padding:30px;text-align:center;color:#666">No posts yet<br>Tap + to post</p>';
-    return;
-  }
-  grid.innerHTML='';
-  data.forEach(p=>{
-    const isV=p.url.includes('.mp4')||p.url.includes('.mov')||p.url.includes('video');
-    const el=document.createElement('div');
-    el.style.cssText='aspect-ratio:3/4;background:#111;border-radius:8px;overflow:hidden;position:relative;border:1px solid #222';
-    el.innerHTML=isV?`<video src="${p.url}#t=0.1" preload="metadata" muted playsinline style="width:100%;height:100%;object-fit:cover"></video><div style="position:absolute;bottom:5px;left:5px;background:rgba(0,0,0,.7);padding:2px 6px;border-radius:4px;font-size:11px;color:#fff">▶</div>`:`<img src="${p.url}" style="width:100%;height:100%;object-fit:cover">`;
-    el.onclick=()=>{ const m=document.getElementById('storyModal'); if(m){ const old=document.getElementById('storyImg'); if(isV){ old.outerHTML=`<video id="storyImg" src="${p.url}" controls autoplay style="max-width:90vw;max-height:80vh;border-radius:12px"></video>`; }else{ old.outerHTML=`<img id="storyImg" src="${p.url}" style="max-width:90vw;max-height:80vh;border-radius:12px">`; } m.style.display='flex'; }else window.open(p.url,'_blank'); };    
-    grid.appendChild(el);
-  });
-  const pc=document.getElementById('postCount'); if(pc) pc.innerText=data.length;
-  const lc=document.getElementById('likeCount'); if(lc) lc.innerText=data.length*7;
-}
-
-loadForever();
- 
-<div id="postView" style="display:none;position:fixed;inset:0;background:#000;z-index:9999;overflow:auto">
-<div style="padding:12px;color:#c9a86a;display:flex;justify-content:space-between"><span onclick="closePost()" style="font-size:26px;cursor:pointer">✕</span><b>Post</b><span></span></div>
-<div id="postViewMedia"></div>
-<div style="display:flex;gap:28px;padding:14px;border-bottom:1px solid #222">
-<div onclick="likePost(this)" style="color:#c9a86a;cursor:pointer"><span class="hIcon" style="font-size:26px">♡</span> <b id="likeNum" style="font-size:14px">12.4K</b></div>
-<div onclick="openC()" style="color:#c9a86a;cursor:pointer;font-size:22px">💬 <b style="font-size:14px">842</b></div>
-<div onclick="sharePost()" style="color:#c9a86a;cursor:pointer;font-size:22px">↗ <b style="font-size:14px">321</b></div>
-</div>
-<div id="detailComments" style="display:none;padding:12px"><input id="commentInput" placeholder="Comment..." style="width:65%;padding:10px;border-radius:20px;background:#222;border:1px solid #333;color:#fff"><button onclick="addComment()" style="padding:10px;background:#c9a86a;border:none;border-radius:20px;font-weight:800;margin-left:6px">Send</button><div id="commentList" style="margin-top:10px;color:#ddd"></div></div>
-</div>
-
-<script>
-let currentUrl=''; let currentPostId='';
-function openPost(id,url,isV){
- currentPostId=id; currentUrl=url;
- let m=isV?'<video src="'+url+'" autoplay loop controls style="width:100%;height:70vh;object-fit:cover"></video>':'<img src="'+url+'" style="width:100%;height:70vh;object-fit:cover">';
- document.getElementById('postViewMedia').innerHTML=m;
- document.getElementById('postView').style.display='block';
- loadLikes(id);
-}
-function closePost(){document.getElementById('postView').style.display='none';}
-async function loadLikes(postId){
- try{let {data}=await supa.from('posts').select('likes').eq('id',postId).single(); if(data&&data.likes){document.getElementById('likeNum').textContent=data.likes.toLocaleString();}}catch(e){}
-}
-async function likePost(el){
- let i=el.querySelector('.hIcon'); let num=document.getElementById('likeNum');
- let liked=i.textContent==='♥';
- let dev=localStorage.getItem('fame_dev')||(()=>{let id='d_'+Math.random().toString(36).slice(2); localStorage.setItem('fame_dev',id); return id;})();
- if(!liked){
-  i.textContent='♥'; i.style.color='#FFD700'; i.style.transform='scale(1.3)'; setTimeout(()=>i.style.transform='scale(1)',150);
-  let {data:already}=await supa.from('post_likes').select('id').eq('post_id',currentPostId).eq('user_id',dev).maybeSingle();
-  if(already) return;
-  await supa.from('post_likes').insert({post_id:currentPostId,user_id:dev});
-  let {data:p}=await supa.from('posts').select('likes').eq('id',currentPostId).single();
-  let newC=(p?.likes||0)+1; await supa.from('posts').update({likes:newC}).eq('id',currentPostId);
-  num.textContent=newC.toLocaleString(); num.style.color='#FFD700';
- } else {
-  i.textContent='♡'; i.style.color='#c9a86a';
-  await supa.from('post_likes').delete().eq('post_id',currentPostId).eq('user_id',dev);
-  let {data:p}=await supa.from('posts').select('likes').eq('id',currentPostId).single();
-  let newC=Math.max(0,(p?.likes||1)-1); await supa.from('posts').update({likes:newC}).eq('id',currentPostId);
-  num.textContent=newC.toLocaleString();
- }
-}
-function openC(){document.getElementById('detailComments').style.display='block';}
-function addComment(){let inp=document.getElementById('commentInput');let list=document.getElementById('commentList');if(!inp.value.trim())return;let d=document.createElement('div');d.textContent='You: '+inp.value; d.style.padding='6px 0'; list.prepend(d); inp.value='';}
-async function sharePost(){if(navigator.share){try{await navigator.share({url:currentUrl});return}catch(e){}}await navigator.clipboard.writeText(currentUrl);alert('Link copied!');}
-// FAME EMERGENCY BUTTON FIX
-function switchTab(name, btn){
-  document.querySelectorAll('.tabs button').forEach(b=>b.classList.remove('active'));
-  if(btn) btn.classList.add('active');
-  document.querySelectorAll('[id^=\"tab-\"]').forEach(t=>t.style.display='none');
-  const target = document.getElementById('tab-'+name);
-  if(target) target.style.display='block';
-  // feed special
-  if(name==='feed'){
-    const f=document.getElementById('tab-feed') || document.getElementById('feed');
-    if(f) f.style.display='flex';
-  }
-  console.log('Switched to', name);
-}
-function openCreateModal(){
-  const m=document.getElementById('createModal');
-  if(m) m.style.display='flex';
-  else alert('Create modal not found - add id=createModal');
-}
-function closeCreateModal(){
-  const m=document.getElementById('createModal');
-  if(m) m.style.display='none';
-}
-// make sure feed visible on load
-window.addEventListener('load', ()=>{
-  switchTab('feed', document.querySelector('.tabs button'));
-});</script></body></html>
+function like(el){ el.classList.toggle('liked'); }
+loadFeed();
+</script></body></html>
