@@ -115,10 +115,11 @@ document.getElementById('pChat').style.display=t==='chat'?'block':'none';
 document.getElementById('pWall').style.display=t==='wall'?'block':'none';
 }
 function goPage(id,b){
-document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-document.getElementById(id).classList.add('active');
-document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));
-b.classList.add('active');
+ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+ if(id==='profile'){ loadMyProfile(); }
+ document.querySelectorAll('.nav button').forEach(x=>x.classList.remove('active'));
+ if(b) b.classList.add('active');
 }
 function like(el){
 el.classList.toggle('liked');
